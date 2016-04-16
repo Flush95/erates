@@ -1,0 +1,855 @@
+* {
+  color: white;
+  box-sizing: border-box;
+}
+
+body {
+  background: #34495e;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.title {
+  width: 500px;
+  margin:auto;
+  font-family: 'Damion', cursive;
+  font-size:80px;
+  top:30px;
+  position: relative;
+  text-shadow: 3px 3px 0px #2c3e50;
+}
+
+.menu {
+  position: fixed;
+  height: 100%;
+  width: 65px;
+  background: #2c3e50;
+  transition:width 1s;
+  overflow: hidden;
+  font-family: 'Michroma', sans-serif;
+  z-index: 99;
+}
+
+.menu:hover {
+  width: 220px;
+}
+
+.menuItem span {
+  position: absolute;
+  left:80px;
+  top:20px;
+  transition:color 1s;
+  color:rgba(255,255,255,0);
+}
+
+.menu:hover .menuItem  span {
+ color:rgba(255,255,255,1);
+}
+
+.menuItem {
+  position: relative;
+  padding: 20px;
+  transition:border .5s, background .2s;  
+}
+
+.menuItem:hover {
+  background: #34495e;
+  cursor: pointer;
+}
+
+.mi1 {
+  border-left:5px solid #16a085;
+}
+
+.mi1:hover{
+  border-left:20px solid #16a085;
+}
+
+.mi2 {
+ border-left:5px solid #2980b9;
+}
+
+.mi2:hover {
+ border-left:20px solid #2980b9;
+}
+
+.mi3 {
+  border-left:5px solid #8e44ad;
+}
+
+.mi3:hover {
+  border-left:20px solid #8e44ad;
+}
+
+.mi4 {
+  border-left:5px solid #e67e22;
+}
+
+.mi4:hover {
+  border-left:20px solid #e67e22;
+}
+
+.mi5 {
+ border-left:5px solid #e74c3c;
+}
+
+.mi5:hover {
+ border-left:20px solid #e74c3c;
+}
+.back {
+    width: 33%;
+    height: 200px;
+    float: left;
+    background-color: #eeeeee;
+    border: 10px;
+    border-color: #ffffff;
+    border-style: solid;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    counter-increment: bc;
+    padding: 0px 5px 5px 5px;
+}
+
+.back:before {
+    content: counter(bc) "_";
+    position: absolute;
+    padding: 10px;
+}
+
+@media screen and (max-width: 1260px) {
+    .back {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .back {
+        width: 100%;
+    }
+}
+.wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-family: Open Sans;
+  height: 100%;
+	margin-top: 5%;
+	margin-left: -90px;
+}
+.wrapper .box {
+  margin: 10px auto;
+  min-height: 40px;
+  width: 400px;
+}
+
+a {
+  color: white;
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  padding: 10px 0;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  /* transition:.3s ease; */
+  width: auto;
+}
+a i {
+  margin-left: 15px;
+}
+a::after, a::before {
+  background: white;
+  content: '';
+  height: 1px;
+  left: 0;
+  position: absolute;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+  width: 100%;
+}
+a::after {
+  top: 0px;
+}
+a::before {
+  bottom: 0px;
+}
+
+.btn-1 {
+  -webkit-transition: .3s ease 0s color;
+  transition: .3s ease 0s color;
+  z-index: 1;
+}
+.btn-1 i {
+  -webkit-transition: 0s ease 0s color, .3s ease .3s transform;
+  transition: 0s ease 0s color, .3s ease .3s transform;
+}
+.btn-1::before, .btn-1::after {
+  left: inherit;
+  right: 0;
+  z-index: -1;
+}
+.btn-1::after {
+  -webkit-transition: .3s ease .3s width, .3s ease .3s transform, .3s ease 0s height;
+  transition: .3s ease .3s width, .3s ease .3s transform, .3s ease 0s height;
+}
+.btn-1::before {
+  -webkit-transition: .3s ease .3s width, .3s ease .3s transform;
+  transition: .3s ease .3s width, .3s ease .3s transform;
+}
+.btn-1:hover {
+  color: black;
+  -webkit-transition: .3s ease .3s color;
+  transition: .3s ease .3s color;
+}
+.btn-1:hover i {
+  color: black;
+  -webkit-transform: translateX(20px);
+          transform: translateX(20px);
+  -webkit-transition: .3s ease .3s color, .3s ease 0s transform;
+  transition: .3s ease .3s color, .3s ease 0s transform;
+}
+.btn-1:hover::after, .btn-1:hover::before {
+  left: inherit;
+  -webkit-transform: translateX(40px);
+          transform: translateX(40px);
+  width: calc(100% + 60px);
+}
+.btn-1:hover::after {
+  height: 100%;
+  -webkit-transition: .3s ease 0s width, .3s ease 0s transform, .3s ease .3s height;
+  transition: .3s ease 0s width, .3s ease 0s transform, .3s ease .3s height;
+}
+.btn-1:hover::before {
+  -webkit-transition: .3s ease 0s width, .3s ease 0s transform;
+  transition: .3s ease 0s width, .3s ease 0s transform;
+}
+
+
+
+.btn-2 i {
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+.btn-2:hover i {
+  -webkit-transform: translateX(20px);
+          transform: translateX(20px);
+}
+.btn-2:hover::after {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  top: 50%;
+}
+.btn-2:hover::before {
+  bottom: 50%;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+
+.btn-3 {
+  -webkit-transition: .3s ease 0s color;
+  transition: .3s ease 0s color;
+  z-index: 1;
+}
+.btn-3 i {
+  -webkit-transition: 0s ease 0s color, .3s ease .3s transform;
+  transition: 0s ease 0s color, .3s ease .3s transform;
+}
+.btn-3::before, .btn-3::after {
+  left: inherit;
+  right: 0;
+  z-index: -1;
+}
+.btn-3::before {
+  -webkit-transition: .3s ease .3s width, .3s ease .3s transform, .3s ease 0s height;
+  transition: .3s ease .3s width, .3s ease .3s transform, .3s ease 0s height;
+}
+.btn-3::after {
+  -webkit-transition: .3s ease .3s width, .3s ease .3s transform;
+  transition: .3s ease .3s width, .3s ease .3s transform;
+}
+.btn-3:hover {
+  color: black;
+  -webkit-transition: .3s ease .3s color;
+  transition: .3s ease .3s color;
+}
+.btn-3:hover i {
+  color: black;
+  -webkit-transform: translateX(20px);
+          transform: translateX(20px);
+  -webkit-transition: .3s ease .3s color, .3s ease 0s transform;
+  transition: .3s ease .3s color, .3s ease 0s transform;
+}
+.btn-3:hover::after, .btn-3:hover::before {
+  left: inherit;
+  -webkit-transform: translateX(40px);
+          transform: translateX(40px);
+  width: calc(100% + 60px);
+}
+.btn-3:hover::before {
+  height: 100%;
+  -webkit-transition: .3s ease 0s width, .3s ease 0s transform, .3s ease .3s height;
+  transition: .3s ease 0s width, .3s ease 0s transform, .3s ease .3s height;
+}
+.btn-3:hover::after {
+  -webkit-transition: .3s ease 0s width, .3s ease 0s transform;
+  transition: .3s ease 0s width, .3s ease 0s transform;
+}
+
+.dateholder {
+    position: relative;
+    width: 420px;
+    margin: 0 auto;
+}
+.datepicker {
+    width: 100%;
+    border: 3px solid #ccc;
+    font-size: 1.5em;
+    padding: .5em 1em;
+	color: black;
+}
+
+
+
+
+
+
+
+/**
+ * Classic styling for pickadate.js
+ * Demo: http://amsul.github.com/pickadate.js/themes.htm#classic
+ */
+
+/**
+ * Colors used:
+ *
+ * #0089ec -> Base blue
+ * #b1dcfb -> Hover blue bg
+ *
+ * #0059bc -> Dark blue for "today" tag
+ * #aaa    -> Light grey for "today" tag if disabled
+ *
+ * #f5f5f5 -> Dimmed grey bg for disabled days
+ * #ddd    -> Less dimmed grey for text in disabled & outfocus days
+ *
+ * #777    -> Grey for calendar border
+ * #888    -> Slightly lighter grey for calendar top border
+ *
+ * #999    -> Medium grey used for year & weekday labels
+ *
+ * #e20    -> Red used for "clear" icon
+ *
+ * #000    -> Black
+ * #fff    -> White
+ *
+ */
+
+
+/**
+ * When the calendar is open
+ */
+
+/* And add the "active" state to the input */
+/*input*/.pickadate__input--active {
+    border-color: #0089ec !important;
+}
+
+
+
+/**
+ * The picker holder
+ */
+.pickadate__holder {
+
+    /* The base font-size */
+    font-size: 16px;
+
+    line-height: 1.2;
+    color: #000;
+
+    position: absolute;
+    z-index: 10000;
+
+    width: 100%;
+    height: 0;
+}
+
+
+/**
+ * The frame that bounds the calendar
+ */
+.pickadate__frame {
+    position: relative;
+    max-width: 420px;
+    min-width: 256px;
+    max-height: 0;
+    overflow-y: hidden;
+
+    -webkit-transition: all .15s ease-out;
+       -moz-transition: all .15s ease-out;
+            transition: all .15s ease-out;
+}
+
+
+/**
+ * When the calendar opens
+ */
+.pickadate__holder--opened .pickadate__frame,
+.pseudo-focused + .pickadate__holder .pickadate__frame {
+    top: .5em;
+    max-height: 25em;
+
+    -webkit-box-shadow: 0 6px 18px 1px rgba(0,0,0,.12);
+       -moz-box-shadow: 0 6px 18px 1px rgba(0,0,0,.12);
+            box-shadow: 0 6px 18px 1px rgba(0,0,0,.12);
+}
+
+
+/**
+ * The calendar itself
+ */
+
+.pickadate__calendar {
+    color: #000;
+    background: #fff;
+
+    padding: 1em;
+    font-size: 1em;
+
+    /* Add the borders */
+    border: 1px solid #ccc;
+
+    -webkit-border-radius: 6px;
+       -moz-border-radius: 6px;
+            border-radius: 6px;
+}
+
+
+
+/**
+ * The calendar table of dates
+ */
+.pickadate__table {
+    text-align: center;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    font-size: inherit;
+    width: 100%;
+    margin-top: .75em;
+}
+
+/* Remove browser stylings on a table cell */
+.pickadate__table td {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/**
+ * The header containing the month and year tags/selectors
+ */
+.pickadate__header {
+    text-align: center;
+    position: relative;
+}
+
+.pickadate__nav--prev,
+.pickadate__nav--next {
+    position: absolute;
+    top: -.1em;
+    padding: .5em;
+    margin: -.5em;
+    text-align: center;
+    min-width: 24px;
+    height: 24px;
+    line-height: 26px;
+}
+.pickadate__nav--prev {
+    left: 0;
+}
+.pickadate__nav--next {
+    right: 0;
+}
+
+
+.pickadate__month,
+.pickadate__year {
+    font-weight: 500;
+    display: inline-block;
+}
+.pickadate__year {
+    color: #999;
+    font-size: .8em;
+    font-style: italic;
+    margin-left: .5em;
+}
+
+
+
+.pickadate__select--month,
+.pickadate__select--year {
+    font-size: .8em;
+    border: 1px solid #ccc;
+    height: 2.5em;
+    margin-top: -.5em;
+}
+.pickadate__select--month {
+    width: 35%;
+}
+.pickadate__select--year {
+    width: 22.5%;
+    margin-left: .5em;
+}
+.pickadate__select--month:focus,
+.pickadate__select--year:focus {
+    border-color: #0089ec;
+}
+
+
+
+
+/**
+ * The weekday labels
+ */
+.pickadate__weekday {
+    width: 14.285714286%; /* 100/7 */
+    font-size: .75em;
+    padding-bottom: .5em;
+    color: #999;
+    font-weight: 500;
+}
+
+
+/**
+ * The days on the calendar
+ */
+.pickadate__day {
+    padding: .33em 0 .25em;
+    font-weight: 100;
+    border: 1px solid #fff;
+    margin-bottom: 1px;
+}
+
+/**
+ * The various states of a day
+ */
+.pickadate__day--today {
+    color: #0089ec;
+    position: relative;
+}
+.pickadate__day--today:before {
+    content: " ";
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 0;
+    height: 0;
+    border-top: .5em solid #0059bc;
+    border-left: .5em solid transparent;
+}
+.pickadate__day--selected,
+.pickadate__day--selected:hover {
+    border-color: #0089ec;
+}
+.pickadate__day--highlighted {
+    background: #fff;
+}
+.pickadate__day--disabled:before {
+    border-top-color: #aaa;
+}
+.pickadate__day--outfocus {
+    color: #ddd;
+
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    filter: alpha(opacity=75);
+    -moz-opacity: .75;
+         opacity: .75;
+}
+
+
+
+/**
+ * The footer containing the "today" and "clear" buttons
+ */
+.pickadate__footer {
+    text-align: center;
+    margin: .5em 0 -.5em;
+}
+
+.pickadate__button--today,
+.pickadate__button--clear {
+    border: 1px solid #fff;
+    background: #fff;
+    font-size: .8em;
+    padding: .66em 0;
+    margin: 0 2.5%;
+    font-weight: bold;
+    width: 40%;
+}
+.pickadate__button--today:before,
+.pickadate__button--clear:before {
+    position: relative;
+    display: inline-block;
+    height: 0;
+}
+.pickadate__button--today:before {
+    content: " ";
+    margin-right: .45em;
+    top: -.05em;
+    width: 0;
+    border-top: .66em solid #0059bc;
+    border-left: .66em solid transparent;
+}
+.pickadate__button--clear:before {
+    content: "\D7";
+    margin-right: .35em;
+    top: -.1em;
+    color: #e20;
+    vertical-align: top;
+    font-size: 1.1em;
+}
+.pickadate__button--today:focus,
+.pickadate__button--clear:focus {
+    background: #b1dcfb;
+    border-color: #0089ec;
+    outline: none;
+}
+
+
+
+
+/**
+ * The hover effect on any buttons
+ */
+.pickadate__day--infocus:hover,
+.pickadate__day--outfocus:hover,
+.pickadate__nav--prev:hover,
+.pickadate__nav--next:hover,
+.pickadate__button--today:hover,
+.pickadate__button--clear:hover {
+    cursor: pointer;
+    color: #000;
+    background: #b1dcfb;
+}
+.pickadate__day--disabled,
+.pickadate__day--disabled:hover {
+    background: #f5f5f5;
+    border-color: #f5f5f5;
+    color: #ddd;
+    cursor: default;
+}
+.pickadate__day--highlighted:hover,
+.pickadate__holder--focused .pickadate__day--highlighted {
+    background: #0089ec;
+    color: #fff;
+}
+
+#blackoutNBU {
+    top: 0;
+    opacity: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    visibility: hidden;
+    background: rgba(0, 0, 0, 0.8);
+    transition: z-index 500ms, visibility 800ms, opacity 1000ms;
+}
+#blackoutNBU.visable {
+    opacity: 1;
+    z-index: 8;
+    visibility: visible;
+}
+#popupNBU {
+    opacity: 0;
+    top: -250px;
+    left: -300px;
+    width: 600px;
+    height: 300px;
+    padding: 15px;
+    position: fixed;
+    border-radius: 5px;
+    margin: -125px 0 0 50%;
+    background: rgb(248, 248, 248);
+    transition: top 550ms, opacity 500ms, z-index 500ms;
+}
+#popupNBU.visable {
+    top: 50%;
+    opacity: 1;
+    z-index: 9;
+}
+#popupNBU > .title{
+  margin: 0;
+  color: rgb(57, 57, 57);
+}
+#popupNBU > .subtitle{
+  font-size: 20px;
+  margin: 0 0 0 15px;
+  color: rgb(157, 157, 157);
+}
+#popupNBU > hr{
+  border: 0;
+  height: 1px;
+  margin: 10px -15px;
+  background: rgb(208, 208, 208);
+}
+#popupNBU .close {
+    top: -10px;
+    width: 30px;
+    height: 30px;
+    right: -10px;
+    cursor: pointer;
+    position: absolute;
+    border-radius: 15px;
+    background: rgb(255, 255, 255);
+    background-image: url(http://imgh.us/close_1.svg);
+    background-size: contain;
+}
+#popupNBU .close:hover {
+    background-image: url(http://imgh.us/close_hover.svg);
+}
+
+
+
+
+
+#blackoutPB {
+    top: 0;
+    opacity: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    visibility: hidden;
+    background: rgba(0, 0, 0, 0.8);
+    transition: z-index 500ms, visibility 800ms, opacity 1000ms;
+}
+#blackoutPB.visable {
+    opacity: 1;
+    z-index: 8;
+    visibility: visible;
+}
+#popupPB {
+    opacity: 0;
+    top: -250px;
+    left: -300px;
+    width: 600px;
+    height: 300px;
+    padding: 15px;
+    position: fixed;
+    border-radius: 5px;
+    margin: -125px 0 0 50%;
+    background: rgb(248, 248, 248);
+    transition: top 550ms, opacity 500ms, z-index 500ms;
+}
+#popupPB.visable {
+    top: 50%;
+    opacity: 1;
+    z-index: 9;
+}
+#popupPB > .title{
+  margin: 0;
+  color: rgb(57, 57, 57);
+}
+#popupPB > .subtitle{
+  font-size: 20px;
+  margin: 0 0 0 15px;
+  color: rgb(157, 157, 157);
+}
+#popupPB > hr{
+  border: 0;
+  height: 1px;
+  margin: 10px -15px;
+  background: rgb(208, 208, 208);
+}
+#popupPB .close {
+    top: -10px;
+    width: 30px;
+    height: 30px;
+    right: -10px;
+    cursor: pointer;
+    position: absolute;
+    border-radius: 15px;
+    background: rgb(255, 255, 255);
+    background-image: url(http://imgh.us/close_1.svg);
+    background-size: contain;
+}
+#popupPB .close:hover {
+    background-image: url(http://imgh.us/close_hover.svg);
+}
+
+
+
+
+#blackoutIB {
+    top: 0;
+    opacity: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    visibility: hidden;
+    background: rgba(0, 0, 0, 0.8);
+    transition: z-index 500ms, visibility 800ms, opacity 1000ms;
+}
+#blackoutIB.visable {
+    opacity: 1;
+    z-index: 8;
+    visibility: visible;
+}
+#popupIB {
+    opacity: 0;
+    top: -250px;
+    left: -300px;
+    width: 600px;
+    height: 300px;
+    padding: 15px;
+    position: fixed;
+    border-radius: 5px;
+    margin: -125px 0 0 50%;
+    background: rgb(248, 248, 248);
+    transition: top 550ms, opacity 500ms, z-index 500ms;
+}
+#popupIB.visable {
+    top: 50%;
+    opacity: 1;
+    z-index: 9;
+}
+#popupIB > .title{
+  margin: 0;
+  color: rgb(57, 57, 57);
+}
+#popupIB > .subtitle{
+  font-size: 20px;
+  margin: 0 0 0 15px;
+  color: rgb(157, 157, 157);
+}
+#popupIB > hr{
+  border: 0;
+  height: 1px;
+  margin: 10px -15px;
+  background: rgb(208, 208, 208);
+}
+#popupIB .close {
+    top: -10px;
+    width: 30px;
+    height: 30px;
+    right: -10px;
+    cursor: pointer;
+    position: absolute;
+    border-radius: 15px;
+    background: rgb(255, 255, 255);
+    background-image: url(http://imgh.us/close_1.svg);
+    background-size: contain;
+}
+#popupIB .close:hover {
+    background-image: url(http://imgh.us/close_hover.svg);
+}
