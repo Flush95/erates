@@ -79,22 +79,23 @@ public class Parser {
 		return nbuRate;
 	}
 	
-	public JSONObject parseAllBanks(HttpServletRequest request, String jsonStr) {
+	public List<All> parseAllBanks(HttpServletRequest request, String jsonStr) {
+		List<All> info = new ArrayList<>();
 		JSONArray jArray = new JSONArray(jsonStr);
 		request.setAttribute("size", jArray.length());
 		for (int i = 0; i < jArray.length(); i++) {
 			JSONObject temp = (JSONObject)jArray.get(i);
-			setJspInfo(temp);
+			info.add(new All(converter.convertUnicodeToString(temp.getString("bankName")),
+					temp.getString("codeAlpha"),
+					temp.getString("date"),
+					temp.getDouble("rateBuy"),
+					temp.getDouble("rateSale")));	
 		}
-		return null;
+		return info;
 	}
 	
 	public void setJspInfo(JSONObject temp) {
-		List<All> info = new ArrayList<>();
-		info.add(new All(converter.convertUnicodeToString(temp.getString("bankName")),
-				temp.getString("codeAlpha"),
-				temp.getString("date"),
-				temp.getDouble("rateBuy"),
-				temp.getDouble("rateSale")));	
+		
+		
 	}
 }

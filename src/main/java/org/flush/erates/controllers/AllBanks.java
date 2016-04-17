@@ -2,6 +2,7 @@ package org.flush.erates.controllers;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +23,8 @@ public class AllBanks extends HttpServlet {
 		HttpURLConnection connection = parser.openConnection(URL, "");
 		String jsonStr = parser.getJSONString(connection);
 		
-		parser.parseAllBanks(request, jsonStr);
+		List<All> list = parser.parseAllBanks(request, jsonStr);
+		request.getSession().setAttribute("allObjectsList", list);
 		request.getRequestDispatcher("allbanks.jsp").forward(request, response);
 	}
 

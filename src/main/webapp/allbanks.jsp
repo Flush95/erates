@@ -61,24 +61,28 @@
 				</tr>
 			</thead>
 			<tbody>
-			<%for (int i = 0; i < Integer.valueOf(request.getAttribute("size").toString()); i++) {
+			<%@ page import="java.util.List" %>
+			<%@ page import="org.flush.erates.controllers.All"%>
+			<%
+			List<All> list = (List<All>)session.getAttribute("allObjectsList");
+			for (int i = 0; i < list.size(); i++) {
 			%>
 			
 				<tr>
 					<td>
-						${i + bankName}
+						<% list.get(i).getBankName(); %>
 					</td>
 					<td>
-						${i + codeAlpha}
+						<% list.get(i).getCodeAlpha(); %>
 					</td>
 					<td>
-						${i + date}
+						<% list.get(i).getDate(); %>
 					</td>
 					<td>
-						${i + rateBuy}
+						<% list.get(i).getRateBuy(); %>
 					</td>
 					<td>
-						${i + rateSale}
+						<% list.get(i).getRateSale(); %>
 					</td>
 				</tr>
 				<%} %>
