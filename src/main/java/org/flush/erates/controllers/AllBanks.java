@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.flush.erates.date.DateLogic;
-import org.flush.erates.parsing.ParseDB;
 import org.flush.erates.parsing.Parser;
 
 

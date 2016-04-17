@@ -61,7 +61,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<%for (int i = 0; i < request.getAttribute("size"); i++) {
+			<%for (int i = 0; i < Integer.valueOf(request.getAttribute("size").toString()); i++) {
 			%>
 			
 				<tr>

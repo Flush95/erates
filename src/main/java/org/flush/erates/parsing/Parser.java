@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.flush.erates.controllers.All;
 import org.flush.erates.utils.UnicodeConverter;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -81,16 +84,17 @@ public class Parser {
 		request.setAttribute("size", jArray.length());
 		for (int i = 0; i < jArray.length(); i++) {
 			JSONObject temp = (JSONObject)jArray.get(i);
-			setJspInfo(request, temp, i);
+			setJspInfo(temp);
 		}
 		return null;
 	}
 	
-	public void setJspInfo(HttpServletRequest request, JSONObject temp, int i) {
-		request.setAttribute(i + "bankName", converter.convertUnicodeToString(temp.getString("bankName")));
-		request.setAttribute(i + "codeAlpha", temp.getString("codeAlpha"));
-		request.setAttribute(i + "date", temp.getString("date"));
-		request.setAttribute(i + "rateBuy", temp.getDouble("rateBuy"));
-		request.setAttribute(i + "rateSale", temp.getDouble("rateSale"));
+	public void setJspInfo(JSONObject temp) {
+		List<All> info = new ArrayList<>();
+		info.add(new All(converter.convertUnicodeToString(temp.getString("bankName")),
+				temp.getString("codeAlpha"),
+				temp.getString("date"),
+				temp.getDouble("rateBuy"),
+				temp.getDouble("rateSale")));	
 	}
 }
