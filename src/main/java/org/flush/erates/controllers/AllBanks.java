@@ -24,7 +24,8 @@ public class AllBanks extends HttpServlet {
 		String jsonStr = parser.getJSONString(connection);
 		
 		List<All> list = parser.parseAllBanks(request, jsonStr);
-		request.getSession().setAttribute("allObjectsList", list);
+		request.setCharacterEncoding("UTF-8");
+		request.setAttribute("allObjectsList", list);
 		request.getRequestDispatcher("allbanks.jsp").forward(request, response);
 	}
 

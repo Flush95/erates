@@ -1,10 +1,9 @@
-<!--<.%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%> -->
+<%@page pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Exchange Rates</title>
-
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -61,28 +60,28 @@
 				</tr>
 			</thead>
 			<tbody>
-			<%@ page import="java.util.List" %>
+			<%@ page import="java.util.ArrayList" %>
 			<%@ page import="org.flush.erates.controllers.All"%>
 			<%
-			List<All> list = (List<All>)session.getAttribute("allObjectsList");
-			for (int i = 0; i < list.size(); i++) {
+			ArrayList<All> list = (ArrayList<All>)request.getAttribute("allObjectsList");
+			for (All all: list) {
 			%>
 			
 				<tr>
 					<td>
-						<% list.get(i).getBankName(); %>
+						<%=all.bankName %>
 					</td>
 					<td>
-						<% list.get(i).getCodeAlpha(); %>
+						<%=all.codeAlpha %>
 					</td>
 					<td>
-						<% list.get(i).getDate(); %>
+						<%=all.date %>
 					</td>
 					<td>
-						<% list.get(i).getRateBuy(); %>
+						<%=all.rateBuy %>
 					</td>
 					<td>
-						<% list.get(i).getRateSale(); %>
+						<%=all.rateSale %>
 					</td>
 				</tr>
 				<%} %>
