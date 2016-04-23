@@ -34,4 +34,14 @@
     <servlet-name>AllBanks</servlet-name>
     <url-pattern>/banks</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PBController</display-name>
+    <servlet-name>PBController</servlet-name>
+    <servlet-class>org.flush.erates.controllers.PBController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PBController</servlet-name>
+    <url-pattern>/parse</url-pattern>
+  </servlet-mapping>
 </web-app>

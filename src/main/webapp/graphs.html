@@ -15,65 +15,81 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	
     <!-- Custom CSS -->
-	<link href="css/style.css" rel="stylesheet">
+	<link href="css/nav.css" rel="stylesheet">
 	
-	<script src="js/index.js"></script>
+	<script src="js/graphs.js"></script>
 
 </head>
 
 <body>
 	<div class="menu">
-		<div class="menuItem mi1">
-			H<span>Home</span>
+		<div class="menuItem mi1" style="color:white;">
+			H<span onClick="location.href='index.html'">Home</span>
 		</div>
-		<div class="menuItem mi2">
+		<div class="menuItem mi2" style="color:white;">
 			S<span>Settings</span>
 		</div>
-		<div class="menuItem mi3">
+		<div class="menuItem mi3" style="color:white;">
 			G<span onClick="location.href='graphs.html'">Graphs</span>
 		</div>
-		<div class="menuItem mi4">
+		<div class="menuItem mi4" style="color:white;">
 			A<span>About</span>
 		</div>
-		<div class="menuItem mi5">
+		<div class="menuItem mi5" style="color:white;">
 			C<span>Contact me</span>
 		</div>
 	</div>
 	
-    <!-- Page Content -->
+
     <div class="container">
 
         <div class="row">
-            <div class="col-lg-12 text-center">
-               
-                <div class="col-lg-12 text-center">
-					<form method="post" action="/localhost:8080/">
-						
-						<div class="col-lg-12" style="margin-top: 5%;">
-							<div class="btn-group">
-							  <button type="button" id="dates" class="btn btn-primary">Compare rates for different dates</a>
-							  <button type="button" id="banks" class="btn btn-primary">Compare rates on different banks</a>
-							</div>
-						</div>
-					</form>
+            <div class="col-lg-12 text-center" style="margin-top: 5%;">
+				<div class="btn-group">
+					<button type="button" id="dates" class="btn btn-primary">Compare rates for different dates</button>
+					<button type="button" id="banks" class="btn btn-primary">Compare rates on different banks</button>
 				</div>
             </div>
-        </div>
-        <!-- /.row -->
+				
+			<div id="formDates" class="col-lg-12 text-center">
+				<form method="post" action="#">
+					<div class="col-sm-3 text-center">
+						<label class="label" style="width:100%; float:left; text-align:left;">Select Rate</label>
+						<select class="form-control" style="width:200px;">
+							<option>Eur</option>
+							<option>Usd</option>
+							<option>Rub</option>
+						</select>
+					</div>
+					<div class="col-sm-3 text-center">
+						<label class="label" style="width:100%; float:left; text-align:left;">Select Bank</label>
+						<select class="form-control" style="width:200px;">
+							<option>NBU</option>
+							<option>PrivatBank</option>
+							<option>Avg All Banks</option>
+						</select>
+					</div>
+					<div class="col-sm-3 text-center">
+						<input type="date" style="margin:15px 15px; width:200px;"></input>
+					</div>
+					<div class="col-sm-3 text-center">
+						<input type="date" style="margin:15px 15px; width:200px;"></input>
+					</div>
+					<div class="col-lg-12 text-center">
+						<button type="submit" class="btn btn-primary" style="margin-top:5%;">Build Chart</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
 
     </div>
-    <!-- /.container -->
-
-    <!-- jQuery Version 1.11.1 -->
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src="js/graphs.js"></script>
     <script src="js/jquery.js"></script>
-
-	<script src="js/index.js"></script>
-	
-    <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-	<script
-		src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-
+	
+	
 </body>
 
 </html>
