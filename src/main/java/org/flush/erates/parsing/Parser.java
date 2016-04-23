@@ -94,8 +94,9 @@ public class Parser {
 		return info;
 	}
 	
-	public void setJspInfo(JSONObject temp) {
-		
-		
+	public void getOrganizations(JSONObject organizationsObj) {
+		JSONArray array = organizationsObj.getJSONArray("organizations");
+		System.out.println(array);
 	}
+	
 }

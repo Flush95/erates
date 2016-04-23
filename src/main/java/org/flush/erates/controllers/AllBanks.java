@@ -14,7 +14,7 @@ import org.flush.erates.parsing.Parser;
 
 public class AllBanks extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String URL = "http://bank-ua.com/export/exchange_rate_cash.json";
+	private static final String URL = "http://resources.finance.ua/ru/public/currency-cash.json";
 	
 	private Parser parser = new Parser();
 	

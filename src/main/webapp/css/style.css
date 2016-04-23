@@ -4,7 +4,7 @@
 }
 
 body {
-  background: #34495e;
+  background: black;
   margin: 0;
   padding: 0;
   border: 0;
@@ -24,15 +24,17 @@ body {
   position: fixed;
   height: 100%;
   width: 65px;
-  background: #2c3e50;
+  background: black;
   transition:width 1s;
   overflow: hidden;
   font-family: 'Michroma', sans-serif;
   z-index: 99;
+  border-right: 1px solid #8B0000;
 }
 
 .menu:hover {
   width: 220px;
+  border-right: 1px solid #8B0000;
 }
 
 .menuItem span {
@@ -42,7 +44,9 @@ body {
   transition:color 1s;
   color:rgba(255,255,255,0);
 }
-
+.menuItem span a {
+	text-decoration:none;
+}
 .menu:hover .menuItem  span {
  color:rgba(255,255,255,1);
 }

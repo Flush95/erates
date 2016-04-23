@@ -34,6 +34,11 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("button").click(function(){
+   
+    alert("The paragraph is now hidden");
+	});
+	
 });
 
 

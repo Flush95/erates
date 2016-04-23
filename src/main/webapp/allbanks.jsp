@@ -32,19 +32,19 @@
 
 	<div class="menu">
 		<div class="menuItem mi1">
-			H<span>Home</span>
+			H<span>ome</span>
 		</div>
 		<div class="menuItem mi2">
-			S<span>Settings</span>
+			A<span>bout</span>
 		</div>
 		<div class="menuItem mi3">
-			I<span>Info</span>
+			G<span>raphs</span>
 		</div>
 		<div class="menuItem mi4">
-			A<span>About</span>
+			E<span>About</span>
 		</div>
 		<div class="menuItem mi5">
-			C<span>Contact me</span>
+			S<span>ettings</span>
 		</div>
 	</div>
 

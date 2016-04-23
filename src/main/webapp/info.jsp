@@ -51,7 +51,10 @@
 
 	<div class="container">
 		<h2>${bank}</h2>
-		<table class="table table-condensed">
+		<style>
+		#t {border:1px solid #8B0000;}
+		</style>
+		<table id="t" class="table table-condensed" >
 			<thead>
 				<tr>
 					<th>Currency</th>
