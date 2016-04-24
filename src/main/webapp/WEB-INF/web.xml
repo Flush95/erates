@@ -36,12 +36,12 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>PBController</display-name>
-    <servlet-name>PBController</servlet-name>
-    <servlet-class>org.flush.erates.controllers.PBController</servlet-class>
+    <display-name>PrivatBankGraphController</display-name>
+    <servlet-name>PrivatBankGraphController</servlet-name>
+    <servlet-class>org.flush.erates.controllers.PrivatBankGraphController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PBController</servlet-name>
-    <url-pattern>/parse</url-pattern>
+    <servlet-name>PrivatBankGraphController</servlet-name>
+    <url-pattern>/pbgraph</url-pattern>
   </servlet-mapping>
 </web-app>

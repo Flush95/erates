@@ -13,26 +13,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.flush.erates.date.DateLogic;
 import org.flush.erates.parsing.ParseDB;
 import org.flush.erates.parsing.Parser;
 import org.json.JSONObject;
 
 
-public class PBController extends HttpServlet {
+public class PrivatBankGraphController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String NEEDED_DATE_URL = "https://api.privatbank.ua/p24api/exchange_rates?json&date=";
 
 	private ParseDB parseDB = new ParseDB();
 	private Parser parser = new Parser();
-
+	private DateLogic dLogic = new DateLogic();
+	
 	private String startDate;
 	private String finishDate;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		startDate = request.getParameter("startDate");
-		finishDate = request.getParameter("finishDate");
+		startDate = dLogic.formatPbDate(request.getParameter("startDate"));
+		finishDate = dLogic.formatPbDate(request.getParameter("finishDate"));
 
 
 		ArrayList<String> date = new ArrayList<>();
