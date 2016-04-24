@@ -17,13 +17,10 @@ import org.flush.erates.parsing.ParseDB;
 import org.flush.erates.parsing.Parser;
 import org.json.JSONObject;
 
-/**
- * Servlet implementation class Parse3YearsPb
- */
+
 public class PBController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String NEEDED_DATE_URL = "https://api.privatbank.ua/p24api/exchange_rates?json&date=";
-
 
 	private ParseDB parseDB = new ParseDB();
 	private Parser parser = new Parser();
@@ -37,9 +34,7 @@ public class PBController extends HttpServlet {
 		startDate = request.getParameter("startDate");
 		finishDate = request.getParameter("finishDate");
 
-		response.getWriter().write(startDate);
-		response.getWriter().write(finishDate);
-		
+
 		ArrayList<String> date = new ArrayList<>();
 		addDateToList(date, startDate, finishDate);
 
@@ -52,12 +47,12 @@ public class PBController extends HttpServlet {
 			JSONObject rateObj = parser.parseSpecificDatePB(json, "EUR");
 			parseDB.insertToRates("PB", "EUR", dateStr, rateObj.getDouble("purchaseRate"),
 					rateObj.getDouble("saleRate"));
-
-			// For USD rateObj = parser.parseSpecificDatePB(json, "USD");
+			
+			rateObj = parser.parseSpecificDatePB(json, "USD");
 			parseDB.insertToRates("PB", "USD", dateStr, rateObj.getDouble("purchaseRate"),
 					rateObj.getDouble("saleRate"));
 
-			// For RUB rateObj = parser.parseSpecificDatePB(json, "RUB");
+			rateObj = parser.parseSpecificDatePB(json, "RUB");
 			parseDB.insertToRates("PB", "RUB", dateStr, rateObj.getDouble("purchaseRate"),
 					rateObj.getDouble("saleRate"));
 
