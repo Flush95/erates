@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.flush.erates.date.DateLogic;
 import org.flush.erates.parsing.ParseDB;
 import org.flush.erates.parsing.Parser;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 
@@ -39,27 +41,38 @@ public class PrivatBankGraphController extends HttpServlet {
 
 		ArrayList<String> date = new ArrayList<>();
 		addDateToList(date, startDate, finishDate);
-
+		
+		List<JSONObject> listJSONObjects = new ArrayList<>();
+		
+		JSONArray array = new JSONArray();
+		JSONObject object = new JSONObject();
+		
 		for (String dateStr : date) {
+			
 			HttpURLConnection connection = parser.openConnection(NEEDED_DATE_URL, dateStr);
 			String json = parser.getJSONString(connection);
-
-			request.setAttribute("bank", "PrivatBank");
-
-			JSONObject rateObj = parser.parseSpecificDatePB(json, "EUR");
-			parseDB.insertToRates("PB", "EUR", dateStr, rateObj.getDouble("purchaseRate"),
-					rateObj.getDouble("saleRate"));
+			listJSONObjects = parser.parseSpecificDatePB(json);
 			
-			rateObj = parser.parseSpecificDatePB(json, "USD");
-			parseDB.insertToRates("PB", "USD", dateStr, rateObj.getDouble("purchaseRate"),
-					rateObj.getDouble("saleRate"));
-
-			rateObj = parser.parseSpecificDatePB(json, "RUB");
-			parseDB.insertToRates("PB", "RUB", dateStr, rateObj.getDouble("purchaseRate"),
-					rateObj.getDouble("saleRate"));
-
+			for (JSONObject loopObj: listJSONObjects) {
+				object.put("date", dateStr);
+				object.put("currency", loopObj.getString("currency"));
+				object.put("buy", loopObj.getDouble("purchaseRate"));
+				object.put("sale", loopObj.getDouble("saleRate"));
+				
+				array.put(object);
+				object = new JSONObject();
+				
+				parseDB.insertToRates("PrivatBank", loopObj.getString("currency"), dateStr, 
+						loopObj.getDouble("purchaseRate"),
+						loopObj.getDouble("saleRate"));
+			}			
 		}
-
+		
+		JSONObject finalObj = new JSONObject();
+		finalObj.put("PrivatBank", array);
+		
+		response.setContentType("application/json");
+		response.getWriter().write(finalObj.toString());
 	}
 
 	private void addDateToList(ArrayList<String> list, String startDate, String finishDate) {

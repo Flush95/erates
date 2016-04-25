@@ -101,29 +101,21 @@ public class Pb extends HttpServlet {
 
 				request.setAttribute("bank", "PrivatBank");
 
-				JSONObject rateObj = parser.parseSpecificDatePB(json, "EUR");
-				distribution.settingResponse(request, "EUR", date, rateObj.getDouble("purchaseRate"),
-						rateObj.getDouble("saleRate"));
-				parseDB.insertToRates("PB", "EUR", date, rateObj.getDouble("purchaseRate"),
-						rateObj.getDouble("saleRate"));
-
-				// For USD
-				rateObj = parser.parseSpecificDatePB(json, "USD");
-				distribution.settingResponse(request, "USD", date, rateObj.getDouble("purchaseRate"),
-						rateObj.getDouble("saleRate"));
-				parseDB.insertToRates("PB", "USD", date, rateObj.getDouble("purchaseRate"),
-						rateObj.getDouble("saleRate"));
-
-				// For RUB
-				rateObj = parser.parseSpecificDatePB(json, "RUB");
-				distribution.settingResponse(request, "RUB", date, rateObj.getDouble("purchaseRate"),
-						rateObj.getDouble("saleRate"));
-				parseDB.insertToRates("PB", "RUB", date, rateObj.getDouble("purchaseRate"),
-						rateObj.getDouble("saleRate"));
-
+				List<JSONObject> listJSONObjects = parser.parseSpecificDatePB(json);
+				
+				for (JSONObject loopObject: listJSONObjects) {
+					
+					distribution.settingResponse(request, loopObject.getString("currency"),
+							date, loopObject.getDouble("purchaseRate"),
+							loopObject.getDouble("saleRate"));
+					
+					parseDB.insertToRates("PrivatBank", loopObject.getString("currency"), 
+							date, loopObject.getDouble("purchaseRate"),
+							loopObject.getDouble("saleRate"));
+				}
+				
 				request.getRequestDispatcher("info.jsp").forward(request, response);
 			}
 		}
 	}
-
 }

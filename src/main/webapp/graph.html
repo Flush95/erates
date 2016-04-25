@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		
+
+		<title>Graph</title>
+
+		<!-- Bootstrap Core CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		
+		<!-- Custom CSS -->
+		<link href="css/nav.css" rel="stylesheet">
+		
+	</head>
+	<body>
+		<div class="container">
+			<canvas id="myChart"  style="width:400px; height:400px;"></canvas>
+		</div>
+		<script src="C:\Users\User\bower_components\Chart.js\dist\Chart.js"></script>
+		<script>
+		var ctx = document.getElementById("myChart");
+		var myChart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+				datasets: [{
+					label: '# of Votes',
+					data: [12, 19, 3, 5, 2, 3],
+					
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}
+			}
+		});
+		</script>
+		<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

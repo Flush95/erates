@@ -59,20 +59,24 @@ public class Parser {
 		return currencyObj;
 	}
 	
-	public JSONObject parseSpecificDatePB(String jsonStr, String rate) {
+	public List<JSONObject> parseSpecificDatePB(String jsonStr) {
 		JSONObject firstLvl = new JSONObject(jsonStr);
 		JSONArray array = (JSONArray) firstLvl.get("exchangeRate");
 		
-		String ob = "";
+		List<JSONObject> listJSONObj = new ArrayList<>();
+		
 		for (int i = 0; i < array.length(); i++) {
-			if ((((JSONObject) array.get(i)).getString("currency").toString()).equals(rate)) {
-				ob = array.get(i).toString();
+			if ((((JSONObject) array.get(i)).getString("currency").toString()).equals("EUR")) {
+				listJSONObj.add((JSONObject) array.get(i));
+			}else if ((((JSONObject) array.get(i)).getString("currency").toString()).equals("USD")) {
+				listJSONObj.add((JSONObject) array.get(i));
+			}else if ((((JSONObject) array.get(i)).getString("currency").toString()).equals("RUB")) {
+				listJSONObj.add((JSONObject) array.get(i));
 			}
 		}
-		JSONObject currencyObj = new JSONObject(ob);
-		return currencyObj;
+		return listJSONObj;
 	}
-	
+
 	public JSONObject parseSpecificDateNBU(String jsonStr, String rate) {
 		JSONObject obj = new JSONObject(jsonStr);
 		JSONObject nbuRate = (JSONObject) obj.get(rate);
@@ -94,9 +98,5 @@ public class Parser {
 		return info;
 	}
 	
-	public void getOrganizations(JSONObject organizationsObj) {
-		JSONArray array = organizationsObj.getJSONArray("organizations");
-		System.out.println(array);
-	}
 	
 }
