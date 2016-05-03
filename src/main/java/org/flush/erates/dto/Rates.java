@@ -4,7 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+@XmlRootElement
 @Entity
 public class Rates {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
@@ -15,6 +18,16 @@ public class Rates {
 	private Double buy;
 	private Double sale;
 	
+	public Rates() {}
+	
+	public Rates(String bank, String rate, String date, Double buy, Double sale) {
+		this.bank = bank;
+		this.rate = rate;
+		this.date = date;
+		this.buy = buy;
+		this.sale = sale;
+	}
+	@XmlTransient
 	public int getId() {
 		return id;
 	}

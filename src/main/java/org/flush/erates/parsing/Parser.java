@@ -8,10 +8,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.flush.erates.controllers.All;
-import org.flush.erates.utils.UnicodeConverter;
+import org.flush.erates.date.DateLogic;
+import org.flush.erates.dto.Rates;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,20 +18,20 @@ public class Parser {
 	private URL urlObj;
 	private HttpURLConnection connection;
 	private int responseCode;
-	private UnicodeConverter converter = new UnicodeConverter();
-	
+	private List<Rates> listRates;
+
 	public HttpURLConnection openConnection(String url, String date) {
 		try {
-			urlObj = new URL(date != ""? (url + date): url);
+			urlObj = new URL(date != "" ? (url + date) : url);
 			connection = (HttpURLConnection) urlObj.openConnection();
 			connection.setRequestMethod("POST");
 			responseCode = connection.getResponseCode();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return responseCode == HttpURLConnection.HTTP_OK ? connection : null;
 	}
-	
+
 	public String getJSONString(HttpURLConnection connection) {
 		StringBuffer responseBuffer = new StringBuffer();
 		try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));) {
@@ -46,35 +44,63 @@ public class Parser {
 		}
 		return responseBuffer.toString();
 	}
-	
-	public JSONObject parseTodayPB(String jsonStr, String rate) {
+
+	public List<Rates> parseTodayPB(String jsonStr) {
 		JSONArray array = new JSONArray(jsonStr);
-		String ob = "";
+		listRates = new ArrayList<>();
+
 		for (int i = 0; i < array.length(); i++) {
-			if ((((JSONObject) array.get(i)).getString("ccy").toString()).equals(rate)) {
-				ob = array.get(i).toString();
+			if ((((JSONObject) array.get(i)).getString("ccy").toString()).equals("EUR")) {
+				listRates.add(new Rates("PrivatBank", 
+						((JSONObject) array.get(i)).getString("ccy").toString(),
+						DateLogic.getTodayDate(),
+						((JSONObject) array.get(i)).getDouble("buy"),
+						((JSONObject) array.get(i)).getDouble("sale")));
+			} else if ((((JSONObject) array.get(i)).getString("ccy").toString()).equals("USD")) {
+				listRates.add(new Rates("PrivatBank", 
+						((JSONObject) array.get(i)).getString("ccy").toString(),
+						DateLogic.getTodayDate(),
+						((JSONObject) array.get(i)).getDouble("buy"),
+						((JSONObject) array.get(i)).getDouble("sale")));
+			} else if ((((JSONObject) array.get(i)).getString("ccy").toString()).equals("RUR")) {
+				listRates.add(new Rates("PrivatBank", 
+						((JSONObject) array.get(i)).getString("ccy").toString(),
+						DateLogic.getTodayDate(),
+						((JSONObject) array.get(i)).getDouble("buy"),
+						((JSONObject) array.get(i)).getDouble("sale")));
 			}
 		}
-		JSONObject currencyObj = new JSONObject(ob);
-		return currencyObj;
+		return listRates;
 	}
-	
-	public List<JSONObject> parseSpecificDatePB(String jsonStr) {
+
+	public List<Rates> parseSpecificDatePB(String jsonStr, String date) {
 		JSONObject firstLvl = new JSONObject(jsonStr);
 		JSONArray array = (JSONArray) firstLvl.get("exchangeRate");
-		
-		List<JSONObject> listJSONObj = new ArrayList<>();
-		
+
+		listRates = new ArrayList<>();
+
 		for (int i = 0; i < array.length(); i++) {
 			if ((((JSONObject) array.get(i)).getString("currency").toString()).equals("EUR")) {
-				listJSONObj.add((JSONObject) array.get(i));
-			}else if ((((JSONObject) array.get(i)).getString("currency").toString()).equals("USD")) {
-				listJSONObj.add((JSONObject) array.get(i));
-			}else if ((((JSONObject) array.get(i)).getString("currency").toString()).equals("RUB")) {
-				listJSONObj.add((JSONObject) array.get(i));
+				listRates.add(new Rates("PrivatBank", 
+						((JSONObject) array.get(i)).getString("currency").toString(),
+						date,
+						((JSONObject) array.get(i)).getDouble("purchaseRate"),
+						((JSONObject) array.get(i)).getDouble("saleRate")));
+			} else if ((((JSONObject) array.get(i)).getString("currency").toString()).equals("USD")) {
+				listRates.add(new Rates("PrivatBank", 
+						((JSONObject) array.get(i)).getString("currency").toString(),
+						date,
+						((JSONObject) array.get(i)).getDouble("purchaseRate"),
+						((JSONObject) array.get(i)).getDouble("saleRate")));
+			} else if ((((JSONObject) array.get(i)).getString("currency").toString()).equals("RUB")) {
+				listRates.add(new Rates("PrivatBank", 
+						((JSONObject) array.get(i)).getString("currency").toString(),
+						date,
+						((JSONObject) array.get(i)).getDouble("purchaseRate"),
+						((JSONObject) array.get(i)).getDouble("saleRate")));
 			}
 		}
-		return listJSONObj;
+		return listRates;
 	}
 
 	public JSONObject parseSpecificDateNBU(String jsonStr, String rate) {
@@ -82,21 +108,4 @@ public class Parser {
 		JSONObject nbuRate = (JSONObject) obj.get(rate);
 		return nbuRate;
 	}
-	
-	public List<All> parseAllBanks(HttpServletRequest request, String jsonStr) {
-		List<All> info = new ArrayList<>();
-		JSONArray jArray = new JSONArray(jsonStr);
-		request.setAttribute("size", jArray.length());
-		for (int i = 0; i < jArray.length(); i++) {
-			JSONObject temp = (JSONObject)jArray.get(i);
-			info.add(new All(converter.convertUnicodeToString(temp.getString("bankName")),
-					temp.getString("codeAlpha"),
-					temp.getString("date"),
-					temp.getDouble("rateBuy"),
-					temp.getDouble("rateSale")));	
-		}
-		return info;
-	}
-	
-	
 }

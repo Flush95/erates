@@ -24,16 +24,7 @@
     <servlet-name>Nbu</servlet-name>
     <url-pattern>/nbu</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>AllBanks</display-name>
-    <servlet-name>AllBanks</servlet-name>
-    <servlet-class>org.flush.erates.controllers.AllBanks</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AllBanks</servlet-name>
-    <url-pattern>/banks</url-pattern>
-  </servlet-mapping>
+  
   <servlet>
     <description></description>
     <display-name>PrivatBankGraphController</display-name>
@@ -44,4 +35,35 @@
     <servlet-name>PrivatBankGraphController</servlet-name>
     <url-pattern>/pbgraph</url-pattern>
   </servlet-mapping>
+  
+  
+  <!-- Auto scan REST service -->
+	<context-param>
+		<param-name>resteasy.scan</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<!-- this need same with resteasy servlet url-pattern -->
+	<context-param>
+		<param-name>resteasy.servlet.mapping.prefix</param-name>
+		<param-value>/rest</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>
+			org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
+		</listener-class>
+	</listener>
+	
+	<servlet>
+		<servlet-name>resteasy-servlet</servlet-name>
+		<servlet-class>
+			org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
+		</servlet-class>
+	</servlet>
+     
+	<servlet-mapping>
+		<servlet-name>resteasy-servlet</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
 </web-app>

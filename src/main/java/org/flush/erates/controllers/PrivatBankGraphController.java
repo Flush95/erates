@@ -35,6 +35,8 @@ public class PrivatBankGraphController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		
+		System.out.println(request.getParameter("startDate") + "\n" + request.getParameter("finishDate"));
 		startDate = dLogic.formatPbDate(request.getParameter("startDate"));
 		finishDate = dLogic.formatPbDate(request.getParameter("finishDate"));
 
@@ -51,7 +53,7 @@ public class PrivatBankGraphController extends HttpServlet {
 			
 			HttpURLConnection connection = parser.openConnection(NEEDED_DATE_URL, dateStr);
 			String json = parser.getJSONString(connection);
-			listJSONObjects = parser.parseSpecificDatePB(json);
+			//listJSONObjects = parser.parseSpecificDatePB(json);
 			
 			for (JSONObject loopObj: listJSONObjects) {
 				object.put("date", dateStr);
