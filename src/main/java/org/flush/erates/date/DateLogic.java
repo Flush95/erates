@@ -13,9 +13,10 @@ public class DateLogic {
 		return dateM[0];
 	}
 	public static String formatPbDate(String date) {
-		System.out.println("DATEEEE:   " + date);
 		String dateY_M_D[] = date.split("-");
+		
 		return dateY_M_D[2] + "." + dateY_M_D[1] + "." + dateY_M_D[0];
 	}
+
 	
 }

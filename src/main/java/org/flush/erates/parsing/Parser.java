@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,19 +54,19 @@ public class Parser {
 			if ((((JSONObject) array.get(i)).getString("ccy").toString()).equals("EUR")) {
 				listRates.add(new Rates("PrivatBank", 
 						((JSONObject) array.get(i)).getString("ccy").toString(),
-						DateLogic.getTodayDate(),
+						DateLogic.formatPbDate(DateLogic.getTodayDate()),
 						((JSONObject) array.get(i)).getDouble("buy"),
 						((JSONObject) array.get(i)).getDouble("sale")));
 			} else if ((((JSONObject) array.get(i)).getString("ccy").toString()).equals("USD")) {
 				listRates.add(new Rates("PrivatBank", 
 						((JSONObject) array.get(i)).getString("ccy").toString(),
-						DateLogic.getTodayDate(),
+						DateLogic.formatPbDate(DateLogic.getTodayDate()),
 						((JSONObject) array.get(i)).getDouble("buy"),
 						((JSONObject) array.get(i)).getDouble("sale")));
 			} else if ((((JSONObject) array.get(i)).getString("ccy").toString()).equals("RUR")) {
 				listRates.add(new Rates("PrivatBank", 
 						((JSONObject) array.get(i)).getString("ccy").toString(),
-						DateLogic.getTodayDate(),
+						DateLogic.formatPbDate(DateLogic.getTodayDate()),
 						((JSONObject) array.get(i)).getDouble("buy"),
 						((JSONObject) array.get(i)).getDouble("sale")));
 			}
@@ -103,9 +104,86 @@ public class Parser {
 		return listRates;
 	}
 
-	public JSONObject parseSpecificDateNBU(String jsonStr, String rate) {
-		JSONObject obj = new JSONObject(jsonStr);
-		JSONObject nbuRate = (JSONObject) obj.get(rate);
-		return nbuRate;
+	public List<Rates> getPBDataSourceDiapasonByDays(List<String> jsonStrList, List<LocalDate> dateList) {
+
+		listRates = new ArrayList<>();
+		
+		for (int i = 0; i < jsonStrList.size(); i++) {
+			
+			JSONObject firstLvl = new JSONObject(jsonStrList.get(i));
+			JSONArray array = (JSONArray) firstLvl.get("exchangeRate");
+			
+			String date = dateList.get(i).toString();
+			
+			for (int j = 0; j < array.length(); j++) {
+				if ((((JSONObject) array.get(j)).getString("currency").toString()).equals("EUR")) {
+					listRates.add(new Rates("PrivatBank", 
+							((JSONObject) array.get(j)).getString("currency").toString(),
+							DateLogic.formatPbDate(date),
+							((JSONObject) array.get(j)).getDouble("purchaseRate"),
+							((JSONObject) array.get(j)).getDouble("saleRate")));
+				} else if ((((JSONObject) array.get(j)).getString("currency").toString()).equals("USD")) {
+					listRates.add(new Rates("PrivatBank", 
+							((JSONObject) array.get(j)).getString("currency").toString(),
+							DateLogic.formatPbDate(date),
+							((JSONObject) array.get(j)).getDouble("purchaseRate"),
+							((JSONObject) array.get(j)).getDouble("saleRate")));
+				} else if ((((JSONObject) array.get(j)).getString("currency").toString()).equals("RUB")) {
+					listRates.add(new Rates("PrivatBank", 
+							((JSONObject) array.get(j)).getString("currency").toString(),
+							DateLogic.formatPbDate(date),
+							((JSONObject) array.get(j)).getDouble("purchaseRate"),
+							((JSONObject) array.get(j)).getDouble("saleRate")));
+				}
+			}
+		}
+		return listRates;
 	}
+	
+	
+	public List<Rates> getNBUDataSource(String jsonStr, String date) {
+		JSONObject obj = new JSONObject(jsonStr);
+		JSONObject eurObj = (JSONObject) obj.get("eur");
+		JSONObject usdObj = (JSONObject) obj.get("usd");
+		JSONObject rubObj = (JSONObject) obj.get("rub");
+		
+		listRates = new ArrayList<>();
+		listRates.add(new Rates("NBU", "EUR", DateLogic.formatPbDate(date),
+				((JSONObject) eurObj).getDouble("ask"),
+				((JSONObject) eurObj).getDouble("bid")));	
+		listRates.add(new Rates("NBU", "USD", DateLogic.formatPbDate(date),
+				((JSONObject) usdObj).getDouble("ask"),
+				((JSONObject) usdObj).getDouble("bid")));	
+		listRates.add(new Rates("NBU", "RUB", DateLogic.formatPbDate(date),
+				((JSONObject) rubObj).getDouble("ask"),
+				((JSONObject) rubObj).getDouble("bid")));	
+		
+		return listRates;
+	}
+	
+	public List<Rates> getNBUDataSourceDiapasonByDays(List<String> jsonStrList, List<LocalDate> date) {
+		
+		listRates = new ArrayList<>();
+		
+		for (int i = 0; i < jsonStrList.size(); i++) {
+			JSONObject obj = new JSONObject(jsonStrList.get(i));
+			JSONObject eurObj = (JSONObject) obj.get("eur");
+			JSONObject usdObj = (JSONObject) obj.get("usd");
+			JSONObject rubObj = (JSONObject) obj.get("rub");
+			
+			
+			listRates.add(new Rates("NBU", "EUR", DateLogic.formatPbDate(date.get(i).toString()),
+					((JSONObject) eurObj).getDouble("ask"),
+					((JSONObject) eurObj).getDouble("bid")));	
+			listRates.add(new Rates("NBU", "USD", DateLogic.formatPbDate(date.get(i).toString()),
+					((JSONObject) usdObj).getDouble("ask"),
+					((JSONObject) usdObj).getDouble("bid")));	
+			listRates.add(new Rates("NBU", "RUB", DateLogic.formatPbDate(date.get(i).toString()),
+					((JSONObject) rubObj).getDouble("ask"),
+					((JSONObject) rubObj).getDouble("bid")));
+		}	
+		
+		return listRates;
+	}
+
 }

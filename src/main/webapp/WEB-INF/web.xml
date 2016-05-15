@@ -4,38 +4,6 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>Pb</display-name>
-    <servlet-name>Pb</servlet-name>
-    <servlet-class>org.flush.erates.controllers.Pb</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Pb</servlet-name>
-    <url-pattern>/pb</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>Nbu</display-name>
-    <servlet-name>Nbu</servlet-name>
-    <servlet-class>org.flush.erates.controllers.Nbu</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Nbu</servlet-name>
-    <url-pattern>/nbu</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <description></description>
-    <display-name>PrivatBankGraphController</display-name>
-    <servlet-name>PrivatBankGraphController</servlet-name>
-    <servlet-class>org.flush.erates.controllers.PrivatBankGraphController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PrivatBankGraphController</servlet-name>
-    <url-pattern>/pbgraph</url-pattern>
-  </servlet-mapping>
-  
   
   <!-- Auto scan REST service -->
 	<context-param>

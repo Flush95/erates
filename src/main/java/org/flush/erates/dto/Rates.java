@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 public class Rates {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 	private String bank;
 	private String rate;
 	private String date;
@@ -28,10 +28,10 @@ public class Rates {
 		this.sale = sale;
 	}
 	@XmlTransient
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getBank() {
