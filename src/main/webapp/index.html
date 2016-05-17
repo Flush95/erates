@@ -31,7 +31,7 @@
 				<span class="glyphicon glyphicon-cog" aria-hidden="true"></span><span class="span">Settings</span>
 			</div>
 			<div class="menuItem itemThree">
-				<span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="span" onClick="location.href='graphs.html'">Graphs</span>
+				<span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="span">Graphs</span>
 			</div>
 			<div class="menuItem itemFour">
 				<span class="glyphicon glyphicon-font" aria-hidden="true"></span><span class="span">About</span>
@@ -43,60 +43,50 @@
 		<!-- end -->
 		
 		
-		<div class="container-fluid">
+		<div class="container-fluid" id="mainContainer">
 			<div class="row">
 				<div class="col-lg-4" style="border-right:1px solid;">
 					<div class="pad">
 						<div class="col-lg-12" id="bloks">
-							<button type="button" class="btn btn-primary btn-block nbu" id="buttonsFormat" data-loading-text="Loading...">Rates In National Bank Of Ukraine</button>
-							<button type="button" class="btn btn-primary btn-block pb" id="buttonsFormat" data-loading-text="Loading...">Rates In Private Bank</button>
-						</div>
-						
-						<div class="col-lg-12"><hr></div>
-						<div class="col-lg-12">
-						<form id="typeForm">
-							<label class="radio-inline">
-							  	<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="single">Single Date
-							</label>
-							<label class="radio-inline">
-								<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="diapason">Date from diapason
-							</label>
-							</form>
-						</div>
-						
-						<div class="col-lg-12"><hr></div>
-						
-						<div class="col-lg-12" id="bloks">
-							<form name="oneDateForm" id="oneDate">
-								<div class="form-group">
-									<label for="specificDate">Choose Date</label>
-									<input type="date" class="form-control sDate" name="specificDate">
+							<div class="panel panel-primary text-primary">
+							  	<div class="panel-heading">
+									<h3 class="panel-title">Single Date</h3>
 								</div>
-							</form>
+							  	<div class="panel-body">
+							    	<form name="oneDateForm" id="oneDate">
+										<div class="form-group">
+											<label for="specificDate">Choose Date</label>
+											<input type="date" class="form-control" name="specificDate">
+										</div>
+									</form>
+									<button type="button" class="btn btn-primary btn-block nbuSingle" id="buttonsFormat" data-loading-text="Loading...">Rates In National Bank Of Ukraine</button>
+									<button type="button" class="btn btn-primary btn-block pbSingle" id="buttonsFormat" data-loading-text="Loading...">Rates In Private Bank</button>
+							  	</div>
+							</div>
 						</div>
 						
 						<div class="col-lg-12"><hr></div>
 						
 						<div class="col-lg-12" id="bloks">
-							<form name="diapasonDatesForm">
-								<div class="form-group">
-									<label for="startDate">Start Date</label>
-									<input type="date" class="form-control dDate" id="buttonsFormat" name="startDate">
+							<div class="panel panel-primary text-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Diapason Dates</h3>
 								</div>
-								<div class="form-group">
-									<label for="endDate">End Date</label>
-									<input type="date" class="form-control dDate" id="buttonsFormat" name="endDate">
-								</div>
-								<!-- <div class="form-group">
-									<label for="method">Method</label>
-									<select class="form-control dDate" id="buttonsFormat" name="method">
-										<option></option>
-										<option>By Days</option>
-										<option>By Month</option>
-										<option>By Year</option>
-									</select>
-								</div> -->
-							</form>
+							  	<div class="panel-body">
+							    	<form name="diapasonDatesForm" id="twoDates">
+										<div class="form-group">
+											<label for="startDate">Start Date</label>
+											<input type="date" class="form-control" id="buttonsFormat" name="startDate">
+										</div>
+										<div class="form-group">
+											<label for="endDate">End Date</label>
+											<input type="date" class="form-control" id="buttonsFormat" name="endDate">
+										</div>
+									</form>
+									<button type="button" class="btn btn-success btn-block nbuDiapason" id="buttonsFormat" data-loading-text="Loading...">Rates In National Bank Of Ukraine</button>
+									<button type="button" class="btn btn-success btn-block pbDiapason" id="buttonsFormat" data-loading-text="Loading...">Rates In Private Bank</button>
+								  </div>
+							</div>	
 						</div>
 						
 						<div class="col-lg-12"><hr></div>
@@ -141,12 +131,70 @@
 							</div>
   					</script>
 				</div>
+			</div>
+		</div>
+		
+		<div class="container-fluid" id="chartContainer">
+			<div class="row">
+				<div class="col-lg-4" style="border-right:1px solid;">
+					<div class="pad">
+						<div class="col-lg-12" id="bloks">
+							<div class="panel panel-primary text-primary">
+							  	<div class="panel-heading">
+									<h3 class="panel-title">Parameters for building Chart</h3>
+								</div>
+							  	<div class="panel-body">
+							    	<div class="form-group">
+							    		<label for="typeOfChart">Type Of Chart</label>
+							    		<select class="form-control" name="typeOfChart" id="typeOfChart">
+							    			<option value=""></option>
+							    			<option value="byRateOneBank">By Rate In Сoncrete Bank</option>
+							    			<option value="byRateDifferentBanks">By Rate In Different Bank</option>
+							    			<option value="byRateOverDiapason">By Rate Over Diapason of Dates</option>
+							    		</select>
+							    	</div>
+							    	<div class="rateOneBank">
+							    		<form>
+								    		<div class="form-group">
+								    			<label for="chooseRate">Choose Rate</label>
+								    			<select class="form-control" name="chooseRate">
+								    				<option>EUR</option>
+								    				<option>USD</option>
+								    				<option>RUB</option>
+								    			</select>
+								    		</div>
+								    		<div class="form-group">
+								    			<label for="oneBankStartDate">Start Date</label>
+								    			<input type="date" class="form-control" name="oneBankStartDate">
+								    		</div>
+								    		<div class="form-group">
+								    			<label for="oneBankEndDate">End Date</label>
+								    			<input type="date" class="form-control" name="oneBankEndDate">
+								    		</div>
+							    		</form>
+							    	</div>
+							    	<div class="rateDifferentBanks">
+							    		Б
+							    	</div>
+							    	<div class="rateOverDiapason">
+							    		В
+							    	</div>
+							  	</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<canvas id="myChart" style="width: 100%"></canvas>
 				</div>
 			</div>
+		</div>
+			
 	    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	    <!-- Include all compiled plugins (below), or include individual files as needed -->
 	    <script src="js/bootstrap.min.js"></script>
 		<script src="js/main.js"></script>
+		<script src="js/Chart.js"></script>
   	</body>
 </html>

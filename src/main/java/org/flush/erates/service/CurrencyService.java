@@ -94,7 +94,6 @@ public class CurrencyService {
 		}
 		checkDayOfWeekPB(startDate, endDate);
 		rates = parser.getPBDataSourceDiapasonByDays(jsonStringList, daysList);
-		DatabaseClass.insertToRates(rates);
 
 		return rates;
 	}
@@ -120,7 +119,7 @@ public class CurrencyService {
 		daysList = new ArrayList<>();
 		jsonStringList = new ArrayList<>();
 		
-		for (LocalDate date = startDateObj; date.isBefore(endDateObj); date = date.plusDays(1)) {
+		for (LocalDate date = startDateObj; date.isBefore(endDateObj.plusDays(1)); date = date.plusDays(1)) {
 			if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
 				continue;
 			} else {
@@ -141,7 +140,7 @@ public class CurrencyService {
 		daysList = new ArrayList<>();
 		jsonStringList = new ArrayList<>();
 		
-		for (LocalDate date = startDateObj; date.isBefore(endDateObj); date = date.plusDays(1)) {
+		for (LocalDate date = startDateObj; date.isBefore(endDateObj.plusDays(1)); date = date.plusDays(1)) {
 			daysList.add(date);
 				
 			HttpURLConnection connectionObj = parser.openConnection(UrlContainer.PB_NEEDED_DATE_URL, DateLogic.formatPbDate(date.toString()));

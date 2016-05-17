@@ -48,4 +48,21 @@ public class DatabaseClass {
 			session.getTransaction().commit();
 		}	
 	}
+	
+	public static void insertSingleToRates(Rates rateObj) {
+		Rates local = new Rates();
+		
+		@SuppressWarnings("deprecation")
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		local.setBank(rateObj.getBank());
+		local.setRate(rateObj.getRate());
+		local.setDate(rateObj.getDate());
+		local.setBuy(rateObj.getBuy());
+		local.setSale(rateObj.getSale());
+			
+		session.save(local);
+		session.getTransaction().commit();	
+	}
 }
