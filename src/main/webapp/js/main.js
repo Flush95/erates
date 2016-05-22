@@ -1,41 +1,27 @@
 $(document).ready(function() {
 	$('#chartContainer').hide();
-	$('.rateOneBank').hide();
-	$('.rateDifferentBanks').hide();
-	$('#modalError').hide();
-	$('#graph-container').hide();
-	$('#charts-container').hide();
-
+	$('#contactMe').hide();
+	
+	$('.alert-success').hide();
+	$('.alert-warning').hide();
+	
 	
 	$('.itemOne').click(function() {
 		$('#chartContainer').slideUp();
+		$('#contactMe').slideUp();
 		$('#mainContainer').slideDown(800);
 	});
 	$('.itemThree').click(function() {
 		$('#mainContainer').slideUp();
+		$('#contactMe').slideUp();
 		$('#chartContainer').slideDown(800);
 	});
-	
-	$('#typeOfChart').change(function() {
-		if ($('#typeOfChart').val() === 'byRateOneBank') {
-			$('.rateDifferentBanks').slideUp();
-			$('#charts-container').slideUp();
-			$('.rateOneBank').slideDown(800);
-			$('#graph-container').slideDown(800);
-		}
-		else if ($('#typeOfChart').val() === 'byRateDifferentBanks') {
-			$('.rateOneBank').slideUp();
-			$('#graph-container').slideUp();
-			$('.rateDifferentBanks').slideDown(800);
-			$('#charts-container').slideDown(800);
-		}
-		else if ($('#typeOfChart').val() === '') {
-			$('.rateOneBank').slideUp();
-			$('.rateDifferentBanks').slideUp();
-			$('#graph-container').slideUp();
-			$('#charts-container').slideUp();
-		}
+	$('.itemFive').click(function() {
+		$('#mainContainer').slideUp();
+		$('#chartContainer').slideUp()
+		$('#contactMe').slideDown(800);
 	});
+	
 	
 	var typeOfChart = "";
 	$('#chartType').change(function() {
@@ -114,18 +100,16 @@ $(document).ready(function() {
 			var tendency = parseFloat(dataSetBuy[dataSetBuy.length-1]) - parseFloat(dataSetBuy[0]);
 			
 			$('#myChart').remove(); 
-			$('.alert').remove();
+			$('.alert-text').empty().append(tendency);
 			
 			if (tendency < 0) {
-			$('#graph-container').append('<canvas id="myChart"></canvas>' + 
-					'<div class="alert alert-warning alert-dismissible" role="alert">' +
-	  						'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + 
-	 						'<strong>Warning!</strong>' + 'Buy tendency: ' + tendency + '</div>');
+				$('#chart').append('<canvas id="myChart"></canvas>');
+				$('.alert-success').hide();
+				$('.alert-warning').show();
 			}else {
-				$('#graph-container').append('<canvas id="myChart"></canvas>' + 
-						'<div class="alert alert-success alert-dismissible" role="alert">' +
-		  						'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + 
-		 						'<strong>Eah!</strong>' + 'Buy tendency: ' + tendency + '</div>');
+				$('#chart').append('<canvas id="myChart"></canvas>');
+				$('.alert-warning').hide();
+				$('.alert-success').show();
 			}
 			
 			var ctx = document.getElementById("myChart");
