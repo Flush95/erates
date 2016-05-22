@@ -30,6 +30,27 @@ public class DatabaseClass {
 		return rates;
 	}
 	
+	public static List<Rates> getRate(Rates rate) {
+		@SuppressWarnings("deprecation")
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+	
+		Criteria criteria = session.createCriteria(Rates.class);
+		criteria.add(Restrictions.like("bank", rate.getBank()));
+		criteria.add(Restrictions.like("date", rate.getDate()));
+		
+		if (rate.getRate().length() > 0) {
+			criteria.add(Restrictions.like("rate", rate.getRate()));
+		}
+		
+		final List<Rates> rates = new LinkedList<>();
+		for (final Object obj : criteria.list()) {
+			rates.add((Rates) obj);
+		}
+		return rates;
+	}
+	
 	public static void insertToRates(List<Rates> listRates) {
 		Rates local = new Rates();
 		for (Rates rates: listRates) {

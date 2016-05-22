@@ -23,8 +23,10 @@ public class CurrencyResouce {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Rates> getListPBFromDate(@FormParam("specificDate") String date) {
-		date = ((date.length() > 0) && (date != null))? DateLogic.formatPbDate(date): DateLogic.formatPbDate(DateLogic.getTodayDate());
-		return CurrencyService.getCurrenciesPBDataSource(date);
+		date = ((date.length() > 0) && (date != null))? 
+				DateLogic.formatPbDate(date): 
+					DateLogic.formatPbDate(DateLogic.getTodayDate());
+		return CurrencyService.getAllCurrenciesFromPb(date);
 	}
 	
 	@POST
@@ -33,7 +35,7 @@ public class CurrencyResouce {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Rates> getListNBUFromDate(@FormParam("specificDate") String date) {
 		date = ((date.length() > 0) && (date != null))? date: DateLogic.getTodayDate();
-		return CurrencyService.getCurrenciesNBUDataSource(date);
+		return CurrencyService.getAllCurrenciesFromNbu(date);
 	}
 	
 	@POST
@@ -42,7 +44,7 @@ public class CurrencyResouce {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Rates> getListNBUFromDiapason(@FormParam("startDate") String startDate, 
 												@FormParam("endDate") String endDate) {
-		return CurrencyService.getCurrencyNBUFromDiapason(startDate, endDate);
+		return CurrencyService.getAllDiapasonCurrenciesFromNbu(startDate, endDate);
 	}
 	
 	@POST
@@ -52,5 +54,36 @@ public class CurrencyResouce {
 	public List<Rates> getListPBFromDiapason(@FormParam("startDate") String startDate, 
 												@FormParam("endDate") String endDate) {
 		return CurrencyService.getCurrencyPBFromDiapason(startDate, endDate);
+	}
+	
+	@POST
+	@Path("/nbuonebank")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Rates>getNbuOneBankList(@FormParam("chooseRate") String selectedRate,
+										@FormParam("oneBankStartDate") String startDate, 
+										@FormParam("oneBankEndDate") String endDate) {
+		return CurrencyService.getRateFromNbu(selectedRate, startDate, endDate);
+	}
+	
+	@POST
+	@Path("/pbonebank")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Rates> getPbOneBankList(@FormParam("chooseRate") String selectedRate,
+										@FormParam("oneBankStartDate") String startDate, 
+										@FormParam("oneBankEndDate") String endDate) {
+		return CurrencyService.getRateFromPb(selectedRate, startDate, endDate);
+	}
+	
+	
+	@POST
+	@Path("/differentbanks")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Rates> getDifferentBanksList(@FormParam("chooseRate") String selectedRate,
+												@FormParam("oneBankStartDate") String startDate, 
+												@FormParam("oneBankEndDate") String endDate) {
+		return CurrencyService.getRatesFromDifferentBanks(selectedRate, startDate, endDate);
 	}
 }

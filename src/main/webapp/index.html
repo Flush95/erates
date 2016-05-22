@@ -6,7 +6,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
     	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     	<title>Exchange Rates</title>
-
+		        
     	<!-- Bootstrap -->
     	<link href="css/bootstrap.min.css" rel="stylesheet">
 	
@@ -40,12 +40,9 @@
 				<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span><span class="span">Contact me</span>
 			</div>
 		</div>
-		<!-- end -->
-		
-		
 		<div class="container-fluid" id="mainContainer">
 			<div class="row">
-				<div class="col-lg-4" style="border-right:1px solid;">
+				<div class="col-lg-4" style="border-right:1px solid; height: 100vh;">
 					<div class="pad">
 						<div class="col-lg-12" id="bloks">
 							<div class="panel panel-primary text-primary">
@@ -88,8 +85,7 @@
 								  </div>
 							</div>	
 						</div>
-						
-						<div class="col-lg-12"><hr></div>
+
 						
 					</div>
 				</div>
@@ -136,7 +132,7 @@
 		
 		<div class="container-fluid" id="chartContainer">
 			<div class="row">
-				<div class="col-lg-4" style="border-right:1px solid;">
+				<div class="col-lg-4" style="border-right:1px solid; height: 100vh;">
 					<div class="pad">
 						<div class="col-lg-12" id="bloks">
 							<div class="panel panel-primary text-primary">
@@ -150,19 +146,39 @@
 							    			<option value=""></option>
 							    			<option value="byRateOneBank">By Rate In Сoncrete Bank</option>
 							    			<option value="byRateDifferentBanks">By Rate In Different Bank</option>
-							    			<option value="byRateOverDiapason">By Rate Over Diapason of Dates</option>
 							    		</select>
 							    	</div>
 							    	<div class="rateOneBank">
-							    		<form>
+							    		<form name="byRateOneBankForm">
 								    		<div class="form-group">
 								    			<label for="chooseRate">Choose Rate</label>
-								    			<select class="form-control" name="chooseRate">
+								    			<select class="form-control" name="chooseRate" id="rate">
 								    				<option>EUR</option>
 								    				<option>USD</option>
 								    				<option>RUB</option>
 								    			</select>
 								    		</div>
+								    		<div class="form-group">
+									    		<label for="oneBankStartDate">Start Date</label>
+									    		<input type="date" class="form-control" name="oneBankStartDate">
+									    	</div>
+									    	<div class="form-group">
+									    		<label for="oneBankEndDate">End Date</label>
+									    		<input type="date" class="form-control" name="oneBankEndDate">
+									    	</div>					
+							    		</form>
+							    		<div class="form-group">
+							    			<label for="chartType">Choose Type Of Chart</label>
+							    			<select class="form-control" name="typeOfChart" id="chartType">
+							    				<option value="line">Line</option>
+							    				<option value="bar">Bar</option>
+							    			</select>
+							    		</div>
+							    		<button type="button" class="btn btn-primary btn-block nbuRateOneBank" id="buttonsFormat" data-loading-text="Loading...">Rates In National Bank Of Ukraine</button>
+										<button type="button" class="btn btn-primary btn-block pbRateOneBank" id="buttonsFormat" data-loading-text="Loading...">Rates In Private Bank</button>
+							    	</div>
+							    	<div class="rateDifferentBanks">
+							    		<form name="byRateDifferentBanksForm">
 								    		<div class="form-group">
 								    			<label for="oneBankStartDate">Start Date</label>
 								    			<input type="date" class="form-control" name="oneBankStartDate">
@@ -172,12 +188,7 @@
 								    			<input type="date" class="form-control" name="oneBankEndDate">
 								    		</div>
 							    		</form>
-							    	</div>
-							    	<div class="rateDifferentBanks">
-							    		Б
-							    	</div>
-							    	<div class="rateOverDiapason">
-							    		В
+							    		<button type="button" class="btn btn-primary btn-block rateDiffBanks" id="buttonsFormat" data-loading-text="Loading...">Build Chart</button>
 							    	</div>
 							  	</div>
 							</div>
@@ -185,7 +196,43 @@
 					</div>
 				</div>
 				<div class="col-lg-8">
-					<canvas id="myChart" style="width: 100%"></canvas>
+					<div id="graph-container">
+						<canvas id="myChart"></canvas>
+						<div class="sk-circle chart-loader hidden">
+						  <div class="sk-circle1 sk-child"></div>
+						  <div class="sk-circle2 sk-child"></div>
+						  <div class="sk-circle3 sk-child"></div>
+						  <div class="sk-circle4 sk-child"></div>
+						  <div class="sk-circle5 sk-child"></div>
+						  <div class="sk-circle6 sk-child"></div>
+						  <div class="sk-circle7 sk-child"></div>
+						  <div class="sk-circle8 sk-child"></div>
+						  <div class="sk-circle9 sk-child"></div>
+						  <div class="sk-circle10 sk-child"></div>
+						  <div class="sk-circle11 sk-child"></div>
+						  <div class="sk-circle12 sk-child"></div>
+						</div>
+					</div>
+					<!-- <div class="col-lg-6" id="analize-container">
+						<div class="form-group">
+							<h4 id="title">Analize Growth or Decline of Rate</h4>
+							<label for="analizeStartDate">Start date for analize</label>
+							<input type="date" class="form-control" name="analizeStartDate">
+							<hr>
+							<label for="analizeEndDate">Start date for analize</label>
+							<input type="date" class="form-control" name="analizeEndDate">
+							<hr>
+							<button class="btn btn-default" type="button" id="analize">Analize</button>
+						</div>
+					</div>
+					<div class="col-lg-6" id="analize-container">
+						<div class="alert alert-warning alert-dismissible" role="alert">
+	  						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	 						<strong>Warning!</strong> Better check yourself, you're not looking too good.
+						</div>
+					</div> -->
+					<div id="charts-container">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -196,5 +243,7 @@
 	    <script src="js/bootstrap.min.js"></script>
 		<script src="js/main.js"></script>
 		<script src="js/Chart.js"></script>
+		<script src="js/notify.js"></script>
+		<script src="js/notify.min.js"></script>
   	</body>
 </html>

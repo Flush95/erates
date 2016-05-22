@@ -21,4 +21,12 @@ public class ErrorMessages {
 				.entity(message)
 				.build();
 	}
+	
+	public static Response rateForDateException() {
+		message = new ErrorMessage("Rate for this date Not Found", 404);
+		return Response.status(Status.BAD_REQUEST)
+				.entity(message)
+				.build();
+	}
+
 }
