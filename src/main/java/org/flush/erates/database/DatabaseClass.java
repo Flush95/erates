@@ -18,6 +18,7 @@ public class DatabaseClass {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 	
+		
 		Criteria criteria = session.createCriteria(Rates.class);
 		criteria.add(Restrictions.like("bank", bank));
 		criteria.add(Restrictions.like("date", date));
