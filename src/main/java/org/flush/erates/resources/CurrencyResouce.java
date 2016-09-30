@@ -1,5 +1,6 @@
 package org.flush.erates.resources;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -33,8 +34,9 @@ public class CurrencyResouce {
 	@Path("/buildnbutable")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Rates> getListNBUFromDate(@FormParam("specificDate") String date) {
-		date = ((date.length() > 0) && (date != null))? date: DateLogic.getTodayDate();
+	public List<Rates> getListNBUFromDate(@FormParam("specificDate") String date) throws IOException {
+		date = ((date.length() > 0) && (date != null))? 
+				date: DateLogic.getTodayDate();
 		return CurrencyService.getAllCurrenciesFromNbu(date);
 	}
 	
@@ -76,14 +78,4 @@ public class CurrencyResouce {
 		return CurrencyService.getRateFromPb(selectedRate, startDate, endDate);
 	}
 	
-	
-	@POST
-	@Path("/differentbanks")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Rates> getDifferentBanksList(@FormParam("chooseRate") String selectedRate,
-												@FormParam("oneBankStartDate") String startDate, 
-												@FormParam("oneBankEndDate") String endDate) {
-		return CurrencyService.getRatesFromDifferentBanks(selectedRate, startDate, endDate);
-	}
 }

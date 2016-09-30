@@ -11,14 +11,12 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
 public class DatabaseClass {
-	
+	static SessionFactory sessionFactory = null;
 	public static List<Rates> getNeededDateList(String date, String bank) {
-		@SuppressWarnings("deprecation")
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 	
-		
 		Criteria criteria = session.createCriteria(Rates.class);
 		criteria.add(Restrictions.like("bank", bank));
 		criteria.add(Restrictions.like("date", date));
@@ -28,12 +26,12 @@ public class DatabaseClass {
 		for (final Object obj : criteria.list()) {
 			rates.add((Rates) obj);
 		}
+		session.getTransaction().commit();
 		return rates;
 	}
 	
 	public static List<Rates> getRate(Rates rate) {
-		@SuppressWarnings("deprecation")
-		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 	
@@ -49,13 +47,13 @@ public class DatabaseClass {
 		for (final Object obj : criteria.list()) {
 			rates.add((Rates) obj);
 		}
+		session.getTransaction().commit();
 		return rates;
 	}
 	
 	public static void insertToRates(List<Rates> listRates) {
 		Rates local = new Rates();
 		for (Rates rates: listRates) {
-			@SuppressWarnings("deprecation")
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -68,13 +66,13 @@ public class DatabaseClass {
 			
 			session.save(local);
 			session.getTransaction().commit();
+
 		}	
 	}
 	
 	public static void insertSingleToRates(Rates rateObj) {
 		Rates local = new Rates();
 		
-		@SuppressWarnings("deprecation")
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();

@@ -1,5 +1,6 @@
 package org.flush.erates.service;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -24,7 +25,6 @@ public class CurrencyService {
 	private static List<String> jsonStringList;
 	
 	
-	/** Getting All Currencies List From PrivatBank **/
 	public static List<Rates> getAllCurrenciesFromPb(String date) {
 		rates = new ArrayList<>();
 		rates = DatabaseClass.getNeededDateList(date, "PrivatBank");
@@ -35,13 +35,13 @@ public class CurrencyService {
 			if (!(date.equals(DateLogic.formatPbDate(DateLogic.getTodayDate())))) {
 				HttpURLConnection connectionObj = parser.openConnection(UrlContainer.PB_NEEDED_DATE_URL, date);
 				String jsonStr = parser.getJSONString(connectionObj);
-				rates = parser.parseSpecificDatePB(jsonStr, date);
+				rates = parser.parseSpecificDatePB(jsonStr, date, "PrivatBank");
 				DatabaseClass.insertToRates(rates);
 				return rates;
 			} else if (date.equals(DateLogic.formatPbDate(DateLogic.getTodayDate()))) {
 				HttpURLConnection connectionObj = parser.openConnection(UrlContainer.PB_TODAY_URL, "");
 				String jsonStr = parser.getJSONString(connectionObj);
-				rates = parser.parseTodayPB(jsonStr);
+				rates = parser.parseTodayPB(jsonStr, "PrivatBank");
 				DatabaseClass.insertToRates(rates);
 				return rates;
 			}
@@ -50,57 +50,50 @@ public class CurrencyService {
 	}
 
 	
-	/** Getting All Currencies List From NBU **/
-	public static List<Rates> getAllCurrenciesFromNbu(String date) {
+	public static List<Rates> getAllCurrenciesFromNbu(String date) throws IOException {
 		rates = new ArrayList<>();
 		rates = DatabaseClass.getNeededDateList(DateLogic.formatPbDate(date), "NBU");
-
+		
 		if (rates.size() != 0) {
 			return rates;
 		} else if (rates.size() == 0) {
-			if (!(date.equals(DateLogic.getTodayDate()))) {
-				HttpURLConnection connectionObj = parser.openConnection(UrlContainer.NBU_NEEDED_DATE_URL, date);
+			if (!(DateLogic.formatPbDate(date).equals(DateLogic.formatPbDate(DateLogic.getTodayDate())))) {
+				HttpURLConnection connectionObj = parser.openConnection(UrlContainer.PB_NEEDED_DATE_URL, DateLogic.formatPbDate(date));
 				String jsonStr = parser.getJSONString(connectionObj);
-				if (jsonStr.equals("[]") || jsonStr.length() <= 0) {
-					throw new WebApplicationException(ErrorMessages.rateForDateException());
-				} else {
-					rates = parser.getNBUDataSource(jsonStr, date);
-					DatabaseClass.insertToRates(rates);
-				}
+				rates = parser.parseSpecificDatePB(jsonStr, DateLogic.formatPbDate(date), "NBU");
+				DatabaseClass.insertToRates(rates);
 				return rates;
-			} else if (date.equals(DateLogic.getTodayDate())) {
-				HttpURLConnection connectionObj = parser.openConnection(UrlContainer.NBU_NEEDED_DATE_URL, "");
+			} else if (DateLogic.formatPbDate(date).equals(DateLogic.formatPbDate(DateLogic.getTodayDate()))) {
+				HttpURLConnection connectionObj = parser.openConnection(UrlContainer.NBU_TODAY_URL, "");
 				String jsonStr = parser.getJSONString(connectionObj);
-				if (jsonStr.equals("[]") || jsonStr.length() <= 0) {
-					throw new WebApplicationException(ErrorMessages.rateForDateException());
-				} else {
-					rates = parser.getNBUDataSource(jsonStr, DateLogic.getTodayDate());
-					DatabaseClass.insertToRates(rates);
-				}
+				
+				rates = parser.parseTodayPB(jsonStr, "NBU");
+				
+				DatabaseClass.insertToRates(rates);
 				return rates;
 			}
 		}
 		return rates;
 	}
 
-	
-	/** Getting All DIAPASON Currencies List From NBU **/
+
 	public static List<Rates> getAllDiapasonCurrenciesFromNbu(String startDate, String endDate) {
 		rates = new ArrayList<>();
+		
 		if (((startDate.length() <= 0) || (startDate == null)) || ((endDate.length() <= 0) || endDate == null)) {
 			throw new WebApplicationException(ErrorMessages.diapasonBadDatesException());
 		}
 		if (!Services.checkDiapason(startDate, endDate)) {
 			throw new WebApplicationException(ErrorMessages.diapasonDateBeforeException());
 		}
-		checkDayOfWeek(startDate, endDate, "NBU");
-		rates = parser.getNbuDiapasonByDays(jsonStringList, daysList);
+		
+		checkDayOfWeek(startDate, endDate, "PB");
+		rates.addAll(parser.getNbuDiapasonByDays(jsonStringList, daysList));
 
 		return rates;
 	}
 	
 	
-	/** Geting All DIAPASON Currecies List from PrivatBank  **/
 	public static List<Rates> getCurrencyPBFromDiapason(String startDate, String endDate) {
 		rates = new ArrayList<>();
 		if (((startDate.length() <= 0) || (startDate == null)) || ((endDate.length() <= 0) || endDate == null)) {
@@ -116,7 +109,6 @@ public class CurrencyService {
 	}
 	
 	
-	/** Getting One Rate From Nbu **/
 	public static List<Rates> getRateFromNbu(String selectedRate,
 			String startDate, String endDate) {
 		rates = new ArrayList<>();
@@ -128,14 +120,13 @@ public class CurrencyService {
 			throw new WebApplicationException(ErrorMessages.diapasonDateBeforeException());
 		}
 		
-		checkDayOfWeek(startDate, endDate, "NBU");
+		checkDayOfWeek(startDate, endDate, "PB");
 		rates.addAll(parser.getNbuByRate(selectedRate, jsonStringList, daysList));
 
 		return rates;
 	}
 	
 	
-	/** Getting One Rate From PrivatBank **/
 	public static List<Rates> getRateFromPb(String selectedRate,
 			String startDate, String endDate) {
 		rates = new ArrayList<>();
@@ -154,31 +145,6 @@ public class CurrencyService {
 	}
 	
 	
-	/** Getting Rates from Different Banks **/
-	public static List<Rates> getRatesFromDifferentBanks(String selectedRate,
-			String startDate, String endDate) {
-		rates = new ArrayList<>();
-		
-		if (((startDate.length() <= 0) || (startDate == null)) || ((endDate.length() <= 0) || endDate == null)) {
-			throw new WebApplicationException(ErrorMessages.diapasonBadDatesException());
-		}
-		if (!Services.checkDiapason(startDate, endDate)) {
-			throw new WebApplicationException(ErrorMessages.diapasonDateBeforeException());
-		}
-		
-		checkDayOfWeek(startDate, endDate, "NBU");
-		rates.addAll(parser.getNbuDiapasonByDays(jsonStringList, daysList));
-				
-		checkDayOfWeek(startDate, endDate, "PB");
-		rates.addAll(parser.getPbDiapasonByDays(jsonStringList, daysList));
-		
-		
-		
-		return rates;
-	}
-	
-	
-	/** Converting and Parsing Days of Week **/
 	public static void checkDayOfWeek(String startDate, String endDate, String bank) {
 		String start[] = startDate.split("-");
 		String end[] = endDate.split("-");

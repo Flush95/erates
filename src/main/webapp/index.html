@@ -1,18 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
   	<head>
+  		<link rel="shortcut icon" href="/images/fav_icon.ico" type="image/x-icon" />
 		<meta charset="utf-8">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
     	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     	<title>Exchange Rates</title>
-		        
+		      
+		      
+		<style>
+			.wrapp {
+				background: #29ABE2;
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100vh;
+				width: 100%;
+			}
+			.spinner {
+  				width: 100px;
+				height: 100px;
+				background-color: #fff;
+			 	margin: 40vh auto;
+				-webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+				animation: sk-rotateplane 1.2s infinite ease-in-out;
+			}
+@-webkit-keyframes sk-rotateplane {
+  0% { -webkit-transform: perspective(120px) }
+  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes sk-rotateplane {
+  0% { 
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
+  } 50% { 
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
+  } 100% { 
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+		</style>
+		<div class="wrapp">
+			<div class="spinner"></div>
+		</div>
+		
+		
+		
+		<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+		<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    	
+    	<link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+		<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+		<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/jszip.min.js"></script>
     	<!-- Bootstrap -->
     	<link href="css/bootstrap.min.css" rel="stylesheet">
 	
 		<link href="css/style.css" rel="stylesheet">
 
 		<script src="//jashkenas.github.io/underscore/underscore-min.js"></script>
+		
 	
 	    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,30 +75,56 @@
 	    <![endif]-->
   	</head>
  	<body>
+ 	<div class="globalWrapper hidden">
   		<!-- MENU -->
-		<div class="menu">
-			<div class="menuItem itemOne">
-				<span class="glyphicon glyphicon-home" aria-hidden="true"></span><span class="span">Home</span>
+		<div class="visible-lg visible-md hidden-sm hidden-xs menu">
+			<div class="menuItem itemOne itemOneCustom">
+				<span class="glyphicon glyphicon-home" aria-hidden="true"></span><span class="spanOne">Home</span>
 			</div>
 			<div class="menuItem itemTwo">
-				<span class="glyphicon glyphicon-cog" aria-hidden="true"></span><span class="span">Settings</span>
+				<span class="glyphicon glyphicon-cog" aria-hidden="true"></span><span class="span">Statistics</span>
 			</div>
 			<div class="menuItem itemThree">
-				<span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="span">Graphs</span>
+				<span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="span">Charts</span>
 			</div>
 			<div class="menuItem itemFour">
 				<span class="glyphicon glyphicon-font" aria-hidden="true"></span><span class="span">About</span>
 			</div>
-			<div class="menuItem itemFive">
-				<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span><span class="span">Contact me</span>
-			</div>
 		</div>
+		
+		<!-- Navigation -->
+	<nav class="visible-sm visible-xs hidden-lg hidden-md navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> 
+						<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand itemOne smallItems" href="#">Home</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="#" class="itemTwo smallItems">Statistics</a></li>
+					<li><a href="#" class="itemThree smallItems">Charts</a></li>
+					<li><a href="#" class="itemFour smallItems">About</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+	<div class="visible-sm visible-xs mobilePadding"></div>
 		<div class="container-fluid" id="mainContainer">
 			<div class="row">
-				<div class="col-lg-4" style="border-right:1px solid; height: 100vh;">
+				<div class="col-lg-4">
 					<div class="pad">
 						<div class="col-lg-12" id="bloks">
-							<div class="panel panel-primary text-primary">
+							<div class="panel">
 							  	<div class="panel-heading">
 									<h3 class="panel-title">Single Date</h3>
 								</div>
@@ -56,16 +135,15 @@
 											<input type="date" class="form-control" name="specificDate">
 										</div>
 									</form>
-									<button type="button" class="btn btn-primary btn-block nbuSingle" id="buttonsFormat" data-loading-text="Loading...">Rates In National Bank Of Ukraine</button>
-									<button type="button" class="btn btn-primary btn-block pbSingle" id="buttonsFormat" data-loading-text="Loading...">Rates In Private Bank</button>
+									<button type="button" class="btn btn-block nbuSingle" id="buttonsFormat" data-loading-text="Loading...">National Bank Of Ukraine</button>
+									<button type="button" class="btn btn-block pbSingle" id="buttonsFormat" data-loading-text="Loading...">Private Bank</button>
 							  	</div>
 							</div>
 						</div>
 						
-						<div class="col-lg-12"><hr></div>
 						
 						<div class="col-lg-12" id="bloks">
-							<div class="panel panel-primary text-primary">
+							<div class="panel">
 								<div class="panel-heading">
 									<h3 class="panel-title">Diapason Dates</h3>
 								</div>
@@ -80,8 +158,8 @@
 											<input type="date" class="form-control" id="buttonsFormat" name="endDate">
 										</div>
 									</form>
-									<button type="button" class="btn btn-success btn-block nbuDiapason" id="buttonsFormat" data-loading-text="Loading...">Rates In National Bank Of Ukraine</button>
-									<button type="button" class="btn btn-success btn-block pbDiapason" id="buttonsFormat" data-loading-text="Loading...">Rates In Private Bank</button>
+									<button type="button" class="btn btn-block nbuDiapason" id="buttonsFormat" data-loading-text="Loading...">National Bank Of Ukraine</button>
+									<button type="button" class="btn btn-block pbDiapason" id="buttonsFormat" data-loading-text="Loading...">Private Bank</button>
 								  </div>
 							</div>	
 						</div>
@@ -102,7 +180,8 @@
 								%>
 								<%= a %>
 							</div>
-    							<table class="table table-bordered" style="width: 100%;">
+								<button id="exportButton" class="btn btn-lg btn-danger clearfix"><span class="fa fa-file-excel-o"></span> Export to Excel</button>
+    							<table class="table table-bordered table-hover" id="tableExport" style="width: 100%;">
     								<thead class="thead-inverse">
         								<tr>
           									<th>Currency</th>
@@ -123,17 +202,17 @@
       								</tbody>
     							</table>
 							</div>
-  					</script>
-				</div>
+  						</script>
+  					</div>
 			</div>
 		</div>
 		
 		<div class="container-fluid" id="chartContainer">
 			<div class="row">
-				<div class="col-lg-4" style="border-right:1px solid; height: 100vh;">
+				<div class="col-lg-4">
 					<div class="pad">
 						<div class="col-lg-12" id="bloks">
-							<div class="panel panel-primary text-primary">
+							<div class="panel">
 							  	<div class="panel-heading">
 									<h3 class="panel-title">Parameters for building Chart</h3>
 								</div>
@@ -164,8 +243,8 @@
 							    				<option value="bar">Bar</option>
 							    			</select>
 							    		</div>
-							    		<button type="button" class="btn btn-primary btn-block nbuRateOneBank" id="buttonsFormat" data-loading-text="Loading...">Rates In National Bank Of Ukraine</button>
-										<button type="button" class="btn btn-primary btn-block pbRateOneBank" id="buttonsFormat" data-loading-text="Loading...">Rates In Private Bank</button>
+							    		<button type="button" class="btn btn-block nbuRateOneBank" id="buttonsFormat" data-loading-text="Loading...">National Bank Of Ukraine</button>
+										<button type="button" class="btn btn-block pbRateOneBank" id="buttonsFormat" data-loading-text="Loading...">Private Bank</button>
 							    	</div>
 							  	</div>
 							</div>
@@ -219,21 +298,67 @@
 				</div>
 			</div>
 		</div>
-		<div class="container-fluid" id="contactMe">
-			<!-- <div class="social-container">
-				<a href="http://www.vk.com/milio">
-					<img class="logo" alt="Brand" src="logo/vk-social-network-logo.svg">
-				</a>
-				<a href="https://www.facebook.com/profile.php?id=100011139099245">
-					<img class="logo" alt="Brand" src="logo/facebook.svg">
-				</a>
-				<a href="https://github.com/Flush95">
-					<img class="logo" alt="Brand" src="logo/github-logo.svg">
-				</a>
-			</div> -->
+		<div class="container-fluid" id="about">
+			<section class="about-us">
+			   <div class="container">
+			      <div class="row">
+			         <div class="nopadding col-xs-12 col-sm-6 col-md-3 about-info">
+			            <ul>
+			               <li><h4>ADDRESS:</h4><span>Chernivtsi, Ukraine</span></li>
+			               <li><h4>Date of birth:</h4><span>04/05/1995</span></li>
+			               <li><h4>Email:</h4><span>b.emilian7@gmail.com</span></li>
+			               <li><h4>Phone:</h4><span>+(380) 66 94 03 779</span></li>
+			               <li><h4>Skype:</h4><span>flush95</span></li>
+			               <li><h4>Languages:</h4><span>English, Italian, French, Ukrainian</span></li>
+			            </ul>
+			         </div><!-- .About-info ends here -->
+			         <div class="col-xs-12 col-md-6 about-content">
+			         	<div>
+			  	  			<h3>Flush's studio</h3>
+			  	  			<span>Java Development</span>
+			        		Exchange Rates App.<br>
+			        		<p>Backend Part Based On: WildFly Application Server.</p>
+			        		<p>Server Logic is written using: Java EE 8, Hibernate, JBoss RESTEasy(JAX-RS).</p>
+			        		<p>Design Pattern: MVC</p>
+			        		<p>Database Used: MySQL</p>
+			        		<p>FrontEnd part builded using: BootstrapjQuery, AJAX, Notify.js, Underscore.js and others</p>
+			   				
+			  	  			<ul>
+			  	  				<li>
+			  	  					<a href="https://www.facebook.com/profile.php?id=100011139099245" target="_blank"><i class="fa fa-facebook"></i></a>
+			  	  				</li>
+			  	  				<li>
+			  	  					<a href="https://github.com/Flush95/erates/tree/master/src/main/java/org/flush/erates" target="_blank"><i class="fa fa-github"></i></a>
+			  	  				</li>
+			  	  				<li>
+			  	  					<a href="https://vk.com/milio" target="_blank"><i class="fa fa-vk"></i></a>
+			  	  				</li>
+			  	  			</ul>
+			    		</div>
+			         </div>
+			         <div class="nopadding col-xs-12 col-sm-6 col-md-3 about-image">
+			            <img src="http://www.rv-designs.nl/wp-content/themes/TheNewDesign/dist/images/people.png" alt="" class="img-responsive hoverZoomLink">
+			         </div>
+			      </div>
+			   </div>
+			</section>
 		</div>
-		
-			
+		<div class="container-fluid" id="statisticsContainer">
+			<div class="row">
+				<div id="jumbotron">
+					<div class="page-header">
+						<h1 class="text-center">Statistics for 2016</h1>
+					</div>
+					<div class="col-lg-6" id="borders">
+						<canvas id="assetsChart"></canvas>
+					</div>
+					<div class="col-lg-6" id="borders">
+						<canvas id="loansToIndividualsChart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>	
 	    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	    <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -242,5 +367,5 @@
 		<script src="js/Chart.js"></script>
 		<script src="js/notify.js"></script>
 		<script src="js/notify.min.js"></script>
-  	</body>
+	</body>
 </html>
